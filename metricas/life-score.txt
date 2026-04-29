@@ -1,0 +1,81 @@
+LIFE SCORE TRACKER (0-100)
+
+Métrica visual que resume cómo estás cada día.
+
+=== COMPONENTES ===
+
+SUEÑO (0-25 puntos):
+- 7-9 horas dormido: +25
+- 6-7 horas: +20
+- 5-6 horas: +10
+- < 5 horas: 0
+
+ENTRENAMIENTO (0-25 puntos):
+- Completaste sesión al 100%: +25
+- 80% de la sesión: +15
+- 50-80%: +10
+- < 50% o no hiciste: 0
+
+NUTRICIÓN (0-25 puntos):
+- 90%+ limpio: +25
+- 70-90% limpio: +15
+- 50-70% limpio: +10
+- < 50% limpio: 0
+
+ENERGÍA/ÁNIMO (0-25 puntos):
+- Me sentí excelente, mucha energía: +25
+- Me sentí bien: +20
+- Neutral, sin energía: +10
+- Mal, muy cansado: 0
+
+=== SEMANA TIPO ===
+
+Fecha     | S | E | N | A | Total | Notas
+----------|---|---|---|---|-------|----------
+29-04 L   |25 |25 |25 |20 | 95/100| Buen día
+30-04 M   |20 |25 |20 |20 | 85/100| Dormir menos
+01-05 X   |25 |15 |15 |15 | 70/100| Cansado
+02-05 J   |25 | 0 |20 |15 | 60/100| Descansé, pero malo (reunión pesada)
+03-05 V   |25 |25 |25 |25 | 100/100| Perfecto
+04-05 S   |22 | 0 |30 |20 | 72/100| Sin entrenar pero trabajo fue OK
+05-05 D   |23 | 0 |25 |22 | 70/100| Descanso total
+
+PROMEDIO SEMANA: 79/100 ✅
+
+=== INTERPRETACIÓN ===
+
+SCORE PROMEDIO SEMANAL:
+90-100: Excelente. Mantén el patrón.
+80-89:  Muy bien. Hay margen de mejora.
+70-79:  Bueno. Identifica qué falta (sueño? entrenamiento? nutrición?)
+60-69:  Pasable. Hay que ajustar algo importante.
+< 60:   Algo anda mal. ¿Qué pasó? Revisar día a día.
+
+=== CÓMO USAR ===
+
+1. Completa el LIFE SCORE en tu journal cada noche.
+2. Al fin de semana, calcula el promedio semanal.
+3. Si es < 70, identifica el culpable:
+   - ¿Fue sueño? Intensifica wind-down.
+   - ¿Fue entrenamiento? ¿Qué pasó? (reunión, cansancio, lesión?)
+   - ¿Fue nutrición? ¿Qué comiste mal?
+   - ¿Fue ánimo? ¿Evento específico?
+4. Ajusta UN PILAR por semana. No todo a la vez.
+
+=== RECORD MES ===
+
+Semana 1 (29-05 a 05-05): 79/100 🟡
+Semana 2 (06-05 a 12-05): __/100
+Semana 3 (13-05 a 19-05): __/100
+Semana 4 (20-05 a 26-05): __/100
+
+PROMEDIO MES: __/100
+
+META: Alcanzar 85/100 en promedio semanal al terminar el mes.
+
+=== NOTAS ===
+
+- Los primeros 7 días SERÁN BAJOS (adaptación sueño). Normal.
+- El Life Score es data, no juicio. Si scoreas 50 un día, no es fracaso.
+- La tendencia es lo importante, no un día aislado.
+- Si 3 semanas seguidas < 70, revisamos el sistema completo.

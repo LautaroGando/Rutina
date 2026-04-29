@@ -1,0 +1,47 @@
+SLEEP LOG
+
+Registra cada noche para ver patrón y mejoras.
+
+Fecha | Dormi | Desperté | Total hrs | Calidad | Notas
+------|-------|----------|-----------|---------|-------
+29-04 | 2:15  | 9:30     | 7:15      | 8/10    | Excelente, wind-down funcionó
+30-04 | 2:45  | 11:00    | 8:15      | 7/10    | Dormí mejor pero más tarde
+01-05 | 3:00  | 12:00    | 9:00      | 6/10    | Se me fue la hora en scroll
+02-05 | 1:45  | 9:00     | 7:15      | 9/10    | Mejor sleep, menos scroll
+03-05 | 2:00  | 9:30     | 7:30      | 8/10    | Consistente
+04-05 | 2:30  | 10:00    | 7:30      | 7/10    | OK
+05-05 | 2:20  | 9:45     | 7:25      | 8/10    | Muy bien
+
+PROMEDIO SEMANA 1: 7:48 horas, 7.4/10 de calidad ✅
+
+=== INSTRUCCIONES ===
+
+Registra:
+- Fecha (ej: 29-04)
+- Hora que dormiste (ej: 2:15)
+- Hora que despertaste (ej: 9:30)
+- Total de horas (calculado)
+- Calidad (1-10, cómo te sentiste)
+- Notas (qué pasó, qué afectó)
+
+=== PATRONES A BUSCAR ===
+
+Si ves:
+- Calidad baja < 5: Probablemente scroll muy tarde
+- Total horas < 6: Muy poco, impacta todo
+- Total horas > 9: Demasiado, posible depresión o sobre-entrenamiento
+- Patrón: si ves 3 días malos seguidos, ajustá wind-down
+
+=== AJUSTES SEGÚN PATRÓN ===
+
+Problema: "Me cuesta dormir (tardo 1 hora)"
+Solución: Wind-down sin pantalla + 1 min de respiración 4-7-8
+
+Problema: "Me despierto en la noche"
+Solución: Cuarto más frío, sin luz, quizá menos cafeína
+
+Problema: "Me duermo a las 3:30am, es imposible"
+Solución: Más ejercicio físico durante el día, menos dopamina (scroll) después de las 9pm
+
+Problema: "Tengo reunión a las 8am"
+Solución: Dormir una hora antes esa noche (ej: dormir a la 1:15am)

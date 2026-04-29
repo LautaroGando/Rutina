@@ -1,0 +1,83 @@
+TASK TRACKER - Semanal
+
+Registra tareas freelance en tiempo real.
+
+SEMANA DEL [29-04 AL 05-05]
+
+Tarea | Prioridad | Deadline | Est. | Lunes | Martes | Miércoles | Jueves | Viernes | Status
+------|-----------|----------|------|-------|--------|-----------|--------|---------|--------
+Componente React Cliente A | 🔴 ALTA | 03-05 | 6h | 2h | 2h | 2h | - | - | ✅ DONE
+Revisar código | 🟡 MEDIA | 01-05 | 2h | - | 1h | 1h | - | - | ✅ DONE
+Diseño mockup | 🔴 ALTA | 02-05 | 4h | 2h | - | - | - | 2h | ✅ DONE
+Repo cleanup | 🟢 BAJA | N/A | 1h | - | - | - | - | 1h | ✅ DONE
+Bug fix pequeño | 🟡 MEDIA | 05-05 | 1h | - | - | - | - | 1h | ✅ DONE
+
+REUNIONES:
+- Martes 2pm: Cliente A (mockup) ✅
+- Jueves 11am: Cliente B (debrief) ✅
+
+HORAS TOTALES: 14h (target: 20h/semana)
+
+=== ESTRUCTURA ===
+
+Cada LUNES:
+1. Escribí todas las tareas que entran esta semana
+2. Asignà prioridad (🔴 alta, 🟡 media, 🟢 baja)
+3. Estimate tiempo
+4. Distribuí en los días (considerando entrenamientos)
+
+Cada DÍA:
+1. Antes de empezar: mira qué toca hoy
+2. Conforme avanzas: registrá horas
+3. Si algo toma más de lo estimado: marca en notas
+
+VIERNES:
+1. ¿Qué completaste?
+2. ¿Qué quedó pendiente?
+3. ¿Por qué?
+4. ¿Qué aprendés para la próxima semana?
+
+=== CÓMO PRIORIZAR ===
+
+🔴 ALTA:
+- Cliente esperando
+- Deadline cercano (< 3 días)
+- Bloqueador para otros
+→ Hace PRIMERO en la semana
+
+🟡 MEDIA:
+- Importante pero no urgente
+- Deadline 1-2 semanas
+→ Encaja entre ALTAS
+
+🟢 BAJA:
+- Nice-to-have
+- No tiene deadline
+- Puede esperar
+→ Cuando hay tiempo sobrante
+
+=== TIEMPO DISPONIBLE ===
+
+Lunes a Sábado:
+- 9-10am: ENTRENAMIENTOS (no se toca)
+- 10am-7pm: Tiempo disponible (≈ 9 horas, pero:
+  - Desayuno/almuerzo: 1 hora
+  - Descansos: 1 hora
+  = 7 horas productivas
+
+- 7pm-1am: SMASH BURGERS (no se toca)
+
+Meta: 20-25 horas/semana de trabajo.
+Disponible: 7h x 6 días = 42 horas posibles.
+
+= Mucho tiempo. Prioridades claras = tranquilo.
+
+=== NOTA ===
+
+Si algún día un cliente te pide reunión URGENTE:
+
+1. ¿Es realmente urgente? (o simplemente te lo pidieron)
+2. Si SÍ: movés entrenamiento al día siguiente (solo esa sesión)
+3. Si NO: decís "puedo en [horario que no es entreno]"
+
+El cliente debe adaptarse a TU horario también. Negocia.

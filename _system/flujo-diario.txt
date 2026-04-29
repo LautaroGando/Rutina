@@ -1,0 +1,95 @@
+FLUJO DIARIO - La Rutina en Acción
+
+Estructura simple para cada día. Nada complicado.
+
+=== MAÑANA (9-10am) ===
+
+[ ] Despiertas (objetivo: 9-10am)
+[ ] Baño rápido (5 min)
+[ ] Desayuno (10 min) - Ve: nutricion/plan-basico.md
+[ ] Agua (vasos de agua)
+[ ] Mira qué toca hoy (work + entrenamiento) - Ve: trabajo/weekly-planning.md
+
+Tiempo: 30 minutos
+
+=== MID-MORNING (10am-12pm) ===
+
+Opción A: ENTRENO MAÑANA
+[ ] 10am: Calentamiento (5 min)
+[ ] 10-10:45am: Rutina (ver plan semanal)
+[ ] 10:45-11am: Estiramiento
+[ ] 11am: Ducha + snack
+
+Opción B: TRABAJO MAÑANA (si hay reunión o urgencia)
+[ ] Trabaja/codea hasta las 11:30am
+[ ] Pausa para almuerzo/snack
+
+Tiempo: 1-1.5 horas
+
+=== MEDIODÍA (12-1:30pm) ===
+
+[ ] Almuerzo (20 min) - Ve: nutricion/plan-basico.md
+[ ] Descanso, scroll es OK (10 min)
+[ ] Agua (vasos)
+
+Tiempo: 30 minutos
+
+=== TARDE (1:30-7pm) ===
+
+[ ] Trabaja/codea
+[ ] Merienda si tenés hambre (2-3pm)
+[ ] Agua cada 1-2 horas
+[ ] Si NO hiciste entrenamiento de mañana:
+    - 4-5pm: ENTRENAMIENTOS (45 min)
+    - 5-5:30pm: Ducha + recovery
+
+=== PRE-TRABAJO (6:30-7pm) ===
+
+[ ] Cena ligera o snack (dependiendo si trabajas)
+[ ] Agua
+[ ] Preparate para ir
+
+=== TRABAJO (7pm-1am) ===
+
+Esto no lo controlás en el sistema.
+Solo registrá: ¿qué comiste? ¿cuánta agua?
+
+=== PRE-SUEÑO (1:15-2am) ===
+
+[ ] Llegás a casa
+[ ] Baño rápido
+[ ] Hidratación (no te deshidrates)
+[ ] 1:30am: WIND-DOWN (sin pantalla) - Ve: sueño/wind-down-routine.md
+[ ] 2am: DORMIR
+
+=== NOCHE (2am-9am) ===
+
+[ ] DORMIR (7-8 horas)
+[ ] Si te despiertas en la noche: respira lentamente, vuelve a dormir
+
+=== ANTES DE DORMIR (1:50am - 30 seg) ===
+
+[ ] Escribí journal del día (2 minutos) - Ve: journal/daily-entry-template.txt
+[ ] Calcula Life Score mental
+[ ] Mañana es nuevo día
+
+---
+
+NOTAS IMPORTANTES:
+
+1. Este flujo es FLEXIBLE. Si algo cambió (reunión, cansancio), adapta.
+2. La PRIORIDAD es: Sueño > Entrenamiento > Nutrición > Trabajo
+3. Si una cosa no sale, no abandones las otras 3.
+4. Si 3 cosas no salen, probablemente sueño es el culpable.
+
+---
+
+RESUMEN RÁPIDO (SI ESTÁS APURADO):
+
+✅ Dormís 7-8 horas (sin negociar)
+✅ Entrenás 45 min (uno de los 5 días)
+✅ Comés proteína en cada comida
+✅ Bebés 2.5L agua
+✅ Escribís 2 min journal
+
+= DÍA EXITOSO

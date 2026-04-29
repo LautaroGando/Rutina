@@ -1,0 +1,85 @@
+JOURNAL - Template Diario (2 MINUTOS MAX)
+
+Fecha: [DATE]
+
+=== MAÑANA ===
+Dormí de: ___:___ a ___:___ (total: ___ horas)
+Calidad sueño (1-10): ___
+Cómo me siento (1-10): ___
+
+=== ENTRENAMIENTO ===
+¿Hice? SI / NO / PARCIAL
+Qué hice: _______________
+Sensación (1-10): ___
+
+=== NUTRICIÓN ===
+¿Comí limpio? SI / NO / PARCIAL (80%+)
+Lo que salió mal: _______________
+
+=== TRABAJO ===
+Reuniones: _______________
+Tareas completadas: _______________
+Tareas pendientes: _______________
+
+=== NOTAS PERSONALES ===
+Cómo me sentí hoy: _______________
+Una cosa buena de hoy: _______________
+Un ajuste para mañana: _______________
+
+=== LIFE SCORE (0-100) ===
+Sueño: +25 / +20 / +10 / 0
+Entrenamiento: +25 / +15 / 0
+Nutrición: +25 / +15 / 0
+Ánimo/Energía: +25 / +15 / 0
+TOTAL: ___/100
+
+---
+
+EJEMPLO COMPLETO:
+
+Fecha: 29-04-2026
+
+=== MAÑANA ===
+Dormí de: 2:15 a 9:30 (total: 7.25 horas)
+Calidad sueño (1-10): 8
+Cómo me siento (1-10): 8
+
+=== ENTRENAMIENTO ===
+¿Hice? SI
+Qué hice: Pecho + bíceps (4 series push-ups, 3 series dominadas, 3 curl)
+Sensación (1-10): 9
+
+=== NUTRICIÓN ===
+¿Comí limpio? SI (90%)
+Lo que salió mal: Comí una burger en el trabajo pero fue light
+
+=== TRABAJO ===
+Reuniones: Reunión cliente A a las 2pm (30 min, OK)
+Tareas completadas: Component React 60% hecho
+Tareas pendientes: Revisar código, terminar componente
+
+=== NOTAS PERSONALES ===
+Cómo me sentí hoy: Muy bien, con energía después de entrenar
+Una cosa buena de hoy: Dormí mejor, terminé 6 horas de código productivo
+Un ajuste para mañana: Tomar más agua durante el entrenamiento
+
+=== LIFE SCORE (0-100) ===
+Sueño: +25 (dormí bien)
+Entrenamiento: +25 (completé rutina)
+Nutrición: +25 (salvo una burger)
+Ánimo/Energía: +20 (buen día pero hay mejora)
+TOTAL: 95/100
+
+---
+
+INSTRUCCIONES:
+
+1. Hacé esto CADA NOCHE antes de dormir (antes del wind-down)
+2. 2 MINUTOS máximo. No es un ensayo.
+3. Sé honesto. Sin excusas.
+4. El Life Score es solo para VER el patrón (semana completa).
+5. Si scoreas < 60 un día, no es fracaso. Es data.
+
+COPÍA ESTO A UN ARCHIVO: journal/daily-[DATE].txt
+
+O en un único archivo: journal/entries.txt (agrega nuevas entradas).

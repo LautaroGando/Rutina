@@ -1,0 +1,55 @@
+MEAL LOG
+
+Registra qué comés para ver patrones y cambios.
+
+Fecha | Desayuno | Almuerzo | Merienda | Cena | Agua | Limpio% | Notas
+------|----------|----------|----------|------|------|---------|-------
+29-04 | 3 huevos + tostada + banana | Pollo + arroz + tomate | Yogur + frutos secos | Huevos + pan | 2.5L | 95% | Muy bien
+30-04 | Avena + proteína | Carne + papa + brócoli | Banana + almendras | Burger + ensalada | 2L | 85% | Work dinners
+01-05 | 8am, desayuno tarde | Arroz con pollo | Galletitas (ERROR) | 2 burgers | 1.5L | 60% | Mal día
+02-05 | Huevos + pan + café | Atún + ensalada | Queso + manzana | Verduras + pollo | 3L | 90% | Mejor
+03-05 | Avena + banana | Arroz con carne | Yogur | Ensalada | 2.5L | 92% | Muy limpio
+04-05 | 10am desayuno tardío | Pasta + tomate | Fruta | Burger | 2L | 75% | Sin control
+05-05 | Huevos + tostada | Pollo + camote | Yogur + granola | Verduras | 2.8L | 94% | Excelente
+
+PROMEDIO SEMANA 1: 85% limpio ✅
+
+=== CÓMO INTERPRETAR "LIMPIO" ===
+
+100% limpio: Todo según plan (proteína, carbohidrato, verduras)
+90-99%: Una desviación menor (ej: una burger pero el resto bien)
+70-89%: Algunos errores (ej: galletitas, comida muy procesada)
+50-69%: Caótico (ej: 2 burgers, gaseosa)
+< 50%: Muy mal (necesita ajuste)
+
+=== OBJETIVOS ===
+
+AGUA: Mínimo 2L/día. Meta: 3L+
+LIMPIEZA: 80%+ durante semana. Fin de semana flexible.
+PROTEÍNA: Registra si tuviste proteína en cada comida.
+
+=== PATRONES A BUSCAR ===
+
+Si ves "limpio%" bajando:
+→ ¿Qué comida es problema? (desayuno? almuerzo?)
+→ ¿Qué alimento? (gaseosa? galletitas?)
+→ ¿Qué hora? (fin de día = más caótico?)
+→ ¿Qué día? (después de entrenar? cansancio?)
+
+=== SI BAJA A < 70% ===
+
+No es fracaso. Es data.
+
+Preguntate:
+1. ¿Qué pasó?
+2. ¿Puedo controlar eso? (sí → prepara comida, sí → deja de comprar X)
+3. ¿Mañana vuelvo a 90%? (sí)
+
+=== NOTA SOBRE SMASH BURGERS ===
+
+Trabajás en comida chatarra. Eso es normal.
+
+Estrategia:
+- Si trabajas 7pm-1am: come almuerzo limpio, cena ligera antes, come lo mínimo en el trabajo
+- Meta: 80% limpio EXCLUYENDO el trabajo
+- Ó incluye 1 burger al cálculo, pero menos en otras comidas ese día

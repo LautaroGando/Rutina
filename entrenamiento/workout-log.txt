@@ -1,0 +1,61 @@
+WORKOUT LOG
+
+Registra cada sesión para ver progreso muscular.
+
+Fecha | Tipo | Ejercicio | Series x Reps | Peso | RPE | Notas
+------|------|-----------|---------------|------|-----|-------
+29-04 | Pecho+Bi | Push-ups | 4x10 | BW | 7/10 | Buena forma, sin fatiga
+29-04 | Pecho+Bi | Dominadas | 3x8 | BW | 6/10 | Podría más, pero acumulé
+29-04 | Pecho+Bi | Curl | 3x10 | 8kg | 6/10 | Mancuernas disponibles
+30-04 | Piernas | Sentadillas | 4x12 | 60kg | 8/10 | Muy bien, buena forma
+30-04 | Piernas | Peso muerto | 3x10 | 80kg | 7/10 | Podría subir peso
+01-05 | Calistenia | Circuito | 3 rondas | N/A | 8/10 | Muy buena intensidad
+
+=== COLUMNAS ===
+
+Fecha: ej 29-04
+Tipo: Pecho+Bíceps, Piernas, Calistenia, etc.
+Ejercicio: Nombre del ejercicio
+Series x Reps: ej 4x10 (4 series de 10 repeticiones)
+Peso: kg o BW (body weight)
+RPE: 1-10, qué tan duro te esforzaste (1=nada, 10=máximo)
+Notas: Sensación, form, próximo paso
+
+=== PROGRESSIVE OVERLOAD (CRECIMIENTO) ===
+
+Cómo saber que progresaste:
+
+Semana 1: Lunes push-ups 4x8 con RPE 7
+Semana 2: Lunes push-ups 4x10 con RPE 7 ✅ (más reps, mismo esfuerzo)
+Semana 3: Lunes push-ups 4x12 con RPE 7 ✅ (más reps)
+Semana 4: Lunes push-ups 4x12 con RPE 8 → Aumentá peso ✅
+
+=== SEÑALES DE BUEN PROGRESO ===
+
+- Cada 1-2 semanas: +1-2 reps en ejercicios
+- Cada 3-4 semanas: Aumentás peso
+- En el espejo: Ves volumen, definición, músculo
+- En el cuerpo: Te sentís más fuerte
+- En la energía: Post-entreno, mejor ánimo
+
+=== SI ESTANCAS ===
+
+(Esto es normal, ocurre en la semana 3-4)
+
+Opciones:
+1. Mismo peso, más reps
+2. Mismo reps, más peso
+3. Cambiá el ángulo del ejercicio
+4. Aumentá RPE (exígete más)
+5. Descansa una semana y probá de nuevo
+
+NO ABANDONES. Esto es parte del juego.
+
+=== CÓMO SABER GANANCIA MUSCULAR ===
+
+Además del log, cada 2 semanas:
+- Foto en el espejo (mismo lugar, luz, hora)
+- Mide circunferencia de brazos, pecho, muslos (flexómetro)
+- Peso (no es lo más importante, pero registra)
+
+Ver: entrenamiento/progress-tracker.md
