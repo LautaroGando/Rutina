@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 // GET: Obtener historial de los últimos N días
 export async function GET(req: NextRequest) {
   try {

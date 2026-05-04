@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 // Endpoint para sembrar usuarios iniciales
 // Llamar manualmente: GET /api/seed
 export async function GET() {

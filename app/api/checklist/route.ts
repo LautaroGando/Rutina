@@ -2,6 +2,43 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getTodayDate } from "@/lib/utils";
 
+// Forzar runtime nodejs (Prisma no funciona en edge)
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+// Asegurarse que el user existe (auto-seed)
+async function ensureUser(slug: string) {
+  let user = await prisma.user.findUnique({ where: { slug } });
+
+  if (!user) {
+    if (slug === "lautaro") {
+      user = await prisma.user.create({
+        data: {
+          slug: "lautaro",
+          name: "Tataro",
+          age: 24,
+          goal: "ganar_masa_muscular",
+          theme: "lautaro",
+        },
+      });
+    } else if (slug === "rocio") {
+      user = await prisma.user.create({
+        data: {
+          slug: "rocio",
+          name: "Ozio",
+          age: 26,
+          weight: 43,
+          height: 1.54,
+          goal: "tonificar_ganar_masa",
+          theme: "rocio",
+        },
+      });
+    }
+  }
+
+  return user;
+}
+
 // POST: Marcar/desmarcar un item de la checklist
 export async function POST(req: NextRequest) {
   try {
@@ -12,15 +49,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    // Buscar usuario
-    const dbUser = await prisma.user.findUnique({ where: { slug: user } });
+    const dbUser = await ensureUser(user);
     if (!dbUser) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({ error: "User not found and could not be created" }, { status: 404 });
     }
 
     const today = getTodayDate();
 
-    // Upsert: crea o actualiza el log
     const log = await prisma.checkItemLog.upsert({
       where: {
         userId_date_itemKey: {
@@ -47,7 +82,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, log });
   } catch (error) {
     console.error("Error en POST /api/checklist:", error);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: "Server error",
+        details: error instanceof Error ? error.message : String(error),
+      },
+      { status: 500 }
+    );
   }
 }
 
@@ -61,14 +102,12 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: "Missing user" }, { status: 400 });
     }
 
-    const dbUser = await prisma.user.findUnique({ where: { slug: user } });
+    const dbUser = await ensureUser(user);
     if (!dbUser) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     const today = getTodayDate();
-
-    // Eliminar todos los checks de hoy
     const deleted = await prisma.checkItemLog.deleteMany({
       where: { userId: dbUser.id, date: today },
     });
@@ -76,7 +115,13 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ success: true, deleted: deleted.count });
   } catch (error) {
     console.error("Error en DELETE /api/checklist:", error);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: "Server error",
+        details: error instanceof Error ? error.message : String(error),
+      },
+      { status: 500 }
+    );
   }
 }
 
@@ -91,7 +136,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Missing user" }, { status: 400 });
     }
 
-    const dbUser = await prisma.user.findUnique({ where: { slug: user } });
+    const dbUser = await ensureUser(user);
     if (!dbUser) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
@@ -105,6 +150,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ logs });
   } catch (error) {
     console.error("Error en GET /api/checklist:", error);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: "Server error",
+        details: error instanceof Error ? error.message : String(error),
+      },
+      { status: 500 }
+    );
   }
 }

@@ -11,7 +11,35 @@ const checklists = {
 
 async function getInitialChecks(slug: "lautaro" | "rocio"): Promise<Record<string, boolean>> {
   try {
-    const user = await prisma.user.findUnique({ where: { slug } });
+    let user = await prisma.user.findUnique({ where: { slug } });
+
+    // Auto-crear si no existe
+    if (!user) {
+      if (slug === "lautaro") {
+        user = await prisma.user.create({
+          data: {
+            slug: "lautaro",
+            name: "Tataro",
+            age: 24,
+            goal: "ganar_masa_muscular",
+            theme: "lautaro",
+          },
+        });
+      } else if (slug === "rocio") {
+        user = await prisma.user.create({
+          data: {
+            slug: "rocio",
+            name: "Ozio",
+            age: 26,
+            weight: 43,
+            height: 1.54,
+            goal: "tonificar_ganar_masa",
+            theme: "rocio",
+          },
+        });
+      }
+    }
+
     if (!user) return {};
 
     const today = getTodayDate();
@@ -28,6 +56,10 @@ async function getInitialChecks(slug: "lautaro" | "rocio"): Promise<Record<strin
     return {};
   }
 }
+
+// Forzar runtime nodejs (no edge) para usar Prisma
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export default async function ChecklistPage({
   params,

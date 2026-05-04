@@ -4,6 +4,10 @@ import { prisma } from "@/lib/db";
 import { cn } from "@/lib/utils";
 import { History, ChevronRight } from "lucide-react";
 
+// Forzar runtime nodejs y dinámico
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 async function getStats(slug: "lautaro" | "rocio") {
   try {
     const user = await prisma.user.findUnique({ where: { slug } });
