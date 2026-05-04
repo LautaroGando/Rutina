@@ -32,33 +32,28 @@ export async function GET(req: NextRequest) {
     });
 
     // Agrupar por fecha
-    const grouped = logs.reduce(
-      (acc, log) => {
-        const dateKey = log.date.toISOString().split("T")[0];
-        if (!acc[dateKey]) {
-          acc[dateKey] = { date: dateKey, items: [], total: 0, completed: 0 };
-        }
-        acc[dateKey].items.push({
-          itemKey: log.itemKey,
-          itemLabel: log.itemLabel,
-          category: log.category,
-          completed: log.completed,
-          completedAt: log.completedAt,
-        });
-        acc[dateKey].total++;
-        if (log.completed) acc[dateKey].completed++;
-        return acc;
-      },
-      {} as Record<
-        string,
-        {
-          date: string;
-          items: { itemKey: string; itemLabel: string; category: string; completed: boolean; completedAt: Date | null }[];
-          total: number;
-          completed: number;
-        }
-      >
-    );
+    type HistoryDay = {
+      date: string;
+      items: { itemKey: string; itemLabel: string; category: string; completed: boolean; completedAt: Date | null }[];
+      total: number;
+      completed: number;
+    };
+    const grouped: Record<string, HistoryDay> = {};
+    for (const log of logs) {
+      const dateKey = log.date.toISOString().split("T")[0];
+      if (!grouped[dateKey]) {
+        grouped[dateKey] = { date: dateKey, items: [], total: 0, completed: 0 };
+      }
+      grouped[dateKey].items.push({
+        itemKey: log.itemKey,
+        itemLabel: log.itemLabel,
+        category: log.category,
+        completed: log.completed,
+        completedAt: log.completedAt,
+      });
+      grouped[dateKey].total++;
+      if (log.completed) grouped[dateKey].completed++;
+    }
 
     const history = Object.values(grouped).sort((a, b) => b.date.localeCompare(a.date));
 

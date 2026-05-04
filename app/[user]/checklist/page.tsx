@@ -47,10 +47,11 @@ async function getInitialChecks(slug: "lautaro" | "rocio"): Promise<Record<strin
       where: { userId: user.id, date: today },
     });
 
-    return logs.reduce((acc, log) => {
-      acc[log.itemKey] = log.completed;
-      return acc;
-    }, {} as Record<string, boolean>);
+    const result: Record<string, boolean> = {};
+    for (const log of logs) {
+      result[log.itemKey] = log.completed;
+    }
+    return result;
   } catch (e) {
     console.error("Error cargando checks:", e);
     return {};

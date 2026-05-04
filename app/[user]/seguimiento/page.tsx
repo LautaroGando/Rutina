@@ -22,7 +22,10 @@ async function getStats(slug: "lautaro" | "rocio") {
       _count: { _all: true },
     });
 
-    const totalThisWeek = checks.reduce((sum, c) => sum + c._count._all, 0);
+    let totalThisWeek = 0;
+    for (const c of checks) {
+      totalThisWeek += c._count._all;
+    }
 
     const allChecks = await prisma.checkItemLog.findMany({
       where: { userId: user.id, completed: true },
