@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Calendar, TrendingUp } from "lucide-react";
+import { ChevronDown, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface HistoryItem {
@@ -80,8 +80,12 @@ export function HistoryView({ user }: HistoryViewProps) {
   };
 
   // Stats globales del rango
-  const totalCompleted = history.reduce((sum, d) => sum + d.completed, 0);
-  const totalActions = history.reduce((sum, d) => sum + d.total, 0);
+  let totalCompleted = 0;
+  let totalActions = 0;
+  for (const d of history) {
+    totalCompleted += d.completed;
+    totalActions += d.total;
+  }
   const avgRate = totalActions > 0 ? Math.round((totalCompleted / totalActions) * 100) : 0;
   const activeDays = history.length;
 
@@ -145,6 +149,9 @@ export function HistoryView({ user }: HistoryViewProps) {
             const rate = getCompletionRate(day);
             const isOpen = expanded === day.date;
 
+            // Solo mostrar items que el usuario marcó como completed (los pendientes no se muestran)
+            const completedItems = day.items.filter((i) => i.completed);
+
             return (
               <motion.div
                 key={day.date}
@@ -199,49 +206,49 @@ export function HistoryView({ user }: HistoryViewProps) {
                       className="overflow-hidden border-t border-white/5"
                     >
                       <div className="p-4 space-y-3">
-                        {Object.entries(
-                          day.items.reduce((acc, item) => {
-                            if (!acc[item.category]) acc[item.category] = [];
-                            acc[item.category].push(item);
-                            return acc;
-                          }, {} as Record<string, HistoryItem[]>)
-                        ).map(([cat, catItems]) => {
-                          const meta = categoryLabels[cat];
-                          return (
-                            <div key={cat}>
-                              <h4 className="text-xs font-bold text-gray-400 uppercase mb-1.5">
-                                {meta?.emoji} {meta?.label || cat}
-                              </h4>
-                              <div className="space-y-1">
-                                {catItems.map((item, i) => (
-                                  <div
-                                    key={i}
-                                    className="flex items-center gap-2 text-sm py-1"
-                                  >
-                                    <span
-                                      className={cn(
-                                        "w-4 h-4 rounded flex-shrink-0 flex items-center justify-center text-[10px]",
-                                        item.completed
-                                          ? cn(accentBg, "text-white")
-                                          : "bg-white/5 text-gray-600"
-                                      )}
+                        {completedItems.length === 0 ? (
+                          <p className="text-xs text-gray-500 text-center py-4">
+                            No marcaste ningún hábito este día.
+                          </p>
+                        ) : (
+                          Object.entries(
+                            completedItems.reduce((acc, item) => {
+                              if (!acc[item.category]) acc[item.category] = [];
+                              acc[item.category].push(item);
+                              return acc;
+                            }, {} as Record<string, HistoryItem[]>)
+                          ).map(([cat, catItems]) => {
+                            const meta = categoryLabels[cat];
+                            return (
+                              <div key={cat}>
+                                <h4 className="text-xs font-bold text-gray-400 uppercase mb-1.5">
+                                  {meta?.emoji} {meta?.label || cat}
+                                </h4>
+                                <div className="space-y-1">
+                                  {catItems.map((item, i) => (
+                                    <div
+                                      key={i}
+                                      className="flex items-center gap-2 text-sm py-1"
                                     >
-                                      {item.completed ? "✓" : "·"}
-                                    </span>
-                                    <span
-                                      className={cn(
-                                        "text-xs flex-1",
-                                        item.completed ? "text-gray-300" : "text-gray-500 line-through"
-                                      )}
-                                    >
-                                      {item.itemLabel}
-                                    </span>
-                                  </div>
-                                ))}
+                                      <span
+                                        className={cn(
+                                          "w-4 h-4 rounded flex-shrink-0 flex items-center justify-center text-[10px]",
+                                          accentBg,
+                                          "text-white"
+                                        )}
+                                      >
+                                        ✓
+                                      </span>
+                                      <span className="text-xs flex-1 text-gray-300">
+                                        {item.itemLabel}
+                                      </span>
+                                    </div>
+                                  ))}
+                                </div>
                               </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          })
+                        )}
                       </div>
                     </motion.div>
                   )}
