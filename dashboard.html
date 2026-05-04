@@ -1,0 +1,2664 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Sistema de Vida - Rutina Saludable</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            padding: 20px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0f3460;
+            padding-bottom: 20px;
+        }
+
+        h1 { font-size: 2.5em; color: #00d4ff; margin-bottom: 5px; }
+        h2 { color: #00d4ff; font-size: 1.8em; margin: 30px 0 15px; padding-left: 15px; border-left: 4px solid #00ff88; }
+        h3 { color: #00ff88; font-size: 1.3em; margin: 20px 0 10px; }
+        h4 { color: #00d4ff; font-size: 1.1em; margin: 15px 0 8px; }
+
+        .date { color: #aaa; font-size: 0.9em; }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+            justify-content: center;
+            background: #0f3460;
+            padding: 12px;
+            border-radius: 10px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        .nav a {
+            color: #00d4ff;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            transition: all 0.3s;
+        }
+
+        .nav a:hover { background: #00d4ff; color: #1a1a2e; }
+
+        .card {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+            border: 2px solid #0f3460;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .card:hover { border-color: #00d4ff; }
+
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #00d4ff, #00ff88);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 15px 0 15px 20px;
+            border-left: 3px solid transparent;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 22px;
+            width: 14px;
+            height: 14px;
+            background: #00ff88;
+            border-radius: 50%;
+            border: 3px solid #1a1a2e;
+        }
+
+        .timeline-time {
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .timeline-activity {
+            color: #eee;
+            font-size: 1em;
+            margin-top: 4px;
+        }
+
+        .timeline-detail {
+            color: #aaa;
+            font-size: 0.85em;
+            margin-top: 4px;
+        }
+
+        .food-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid #0f3460;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .food-card:hover {
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateY(-3px);
+            border-color: #00ff88;
+        }
+
+        .food-emoji {
+            font-size: 4em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .food-name {
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .food-desc {
+            color: #aaa;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .food-stats {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            color: #00ff88;
+        }
+
+        .food-stats span { display: block; padding: 2px 0; }
+
+        .day-card {
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            border: 2px solid #0f3460;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .day-card.rest { border-color: #ffaa00; background: rgba(255, 170, 0, 0.05); }
+
+        .day-title {
+            color: #00d4ff;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-focus {
+            color: #00ff88;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .exercise-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .exercise-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .exercise-list li:last-child { border-bottom: none; }
+
+        .exercise-name { color: #eee; flex: 1; }
+        .exercise-sets { color: #00ff88; font-weight: bold; }
+
+        .info-box {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid #00d4ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+
+        .warning-box {
+            background: rgba(255, 170, 0, 0.1);
+            border-left: 4px solid #ffaa00;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+
+        .danger-box {
+            background: rgba(255, 68, 68, 0.1);
+            border-left: 4px solid #ff4444;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+
+        .success-box {
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 4px solid #00ff88;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #0f3460;
+        }
+
+        th {
+            background: #0f3460;
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        tr:hover { background: rgba(0, 212, 255, 0.05); }
+
+        .checklist { list-style: none; }
+        .checklist li {
+            padding: 12px 0;
+            border-bottom: 1px solid #0f3460;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .checklist li:last-child { border-bottom: none; }
+
+        .checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #00d4ff;
+            border-radius: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 0;
+        }
+
+        .checkbox.checked {
+            background: #00ff88;
+            border-color: #00ff88;
+            color: #1a1a2e;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .meal-plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .meal-day {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #0f3460;
+        }
+
+        .meal-day h4 {
+            color: #00d4ff;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #0f3460;
+            padding-bottom: 8px;
+        }
+
+        .meal-item {
+            margin: 8px 0;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .meal-item strong { color: #00ff88; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .stat-mini {
+            background: rgba(0, 255, 136, 0.05);
+            border-left: 3px solid #00ff88;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-mini-num {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .stat-mini-label {
+            font-size: 0.75em;
+            color: #aaa;
+            margin-top: 4px;
+        }
+
+        .motivational {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e72);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .water-tracker {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .water-glass {
+            font-size: 2em;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: all 0.3s;
+        }
+
+        .water-glass.filled { opacity: 1; }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 2px solid #0f3460;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.4em; }
+            .nav { position: static; }
+        }
+
+        details {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #0f3460;
+        }
+
+        details summary {
+            cursor: pointer;
+            color: #00d4ff;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+
+        details[open] summary { margin-bottom: 10px; border-bottom: 1px solid #0f3460; padding-bottom: 10px; }
+
+        .price-tag {
+            display: inline-block;
+            background: #00ff88;
+            color: #1a1a2e;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+        /* TABS / SWITCHER */
+        .person-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0 30px 0;
+            padding: 8px;
+            background: #0a0e27;
+            border-radius: 50px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .person-tab {
+            flex: 1;
+            padding: 14px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.05em;
+            transition: all 0.3s ease;
+            color: #aaa;
+            background: transparent;
+            border: none;
+            font-family: inherit;
+        }
+
+        .person-tab:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .person-tab.active.lautaro {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .person-tab.active.rocio {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .rocio-theme h1, .rocio-theme h2, .rocio-theme h3 {
+            color: #ff6b9d;
+        }
+
+        .rocio-theme .card-title {
+            color: #ff6b9d;
+        }
+
+        .rocio-theme .nav a:hover {
+            background: rgba(255, 107, 157, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💪 MI SISTEMA DE VIDA - Rutina Completa</h1>
+            <p class="date" id="today-date"></p>
+        </header>
+
+        <div class="person-switcher">
+            <button class="person-tab lautaro active" onclick="switchPerson('lautaro')">💙 Lautaro / Chelo</button>
+            <button class="person-tab rocio" onclick="switchPerson('rocio')">💗 Rocío</button>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ============== TAB LAUTARO ============== -->
+        <!-- ============================================ -->
+        <div id="tab-lautaro" class="tab-content active">
+
+        <nav class="nav">
+            <a href="#rutina">📅 Rutina Diaria</a>
+            <a href="#entrenamiento">🏋️ Entrenamientos</a>
+            <a href="#alimentacion">🍽️ Alimentación</a>
+            <a href="#productos">🛒 Productos</a>
+            <a href="#hidratacion">💧 Hidratación</a>
+            <a href="#sueño">😴 Sueño</a>
+            <a href="#checklist">✅ Checklist Hoy</a>
+            <a href="#seguimiento">📊 Seguimiento</a>
+        </nav>
+
+        <div class="motivational">
+            🎯 Sistema diseñado para vos: ganar masa muscular, recuperar energía y disciplina, sin volver loco. Día a día, paso a paso.
+        </div>
+
+        <!-- ============== RUTINA DIARIA ============== -->
+        <section id="rutina">
+            <h2>📅 Tu Rutina Diaria - Horarios Argentinos</h2>
+
+            <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">⏰ 8:30 AM - DESPERTAR</div>
+                        <div class="timeline-activity">Levantarse, baño rápido, 2 vasos de agua</div>
+                        <div class="timeline-detail">Tu cuerpo está deshidratado. Hidratá ANTES del café.</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">📝 9:00 AM - REGISTRO + DESAYUNO</div>
+                        <div class="timeline-activity">Registro del día anterior (2 min) + desayuno proteico</div>
+                        <div class="timeline-detail">Cabeza fresca para revisar Puntaje de Vida + comida con energía</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">💪 10:00 AM - ENTRENAMIENTO</div>
+                        <div class="timeline-activity">45-60 min según día (ver plan semanal)</div>
+                        <div class="timeline-detail">Lunes: Pecho/Bíceps · Martes: Piernas · Miércoles: Calistenia · Jueves: Descanso · Viernes: Espalda</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">🥤 11:00 AM - POST-ENTRENO</div>
+                        <div class="timeline-activity">Licuado proteico + ducha</div>
+                        <div class="timeline-detail">Banana + 1 medida de proteína + 250ml leche + avena</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">💼 11:30 AM - 13:00 - TRABAJO</div>
+                        <div class="timeline-activity">Programación / tareas freelance</div>
+                        <div class="timeline-detail">Foco profundo: 90 min de trabajo intenso</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">🍽️ 13:00 PM - ALMUERZO</div>
+                        <div class="timeline-activity">La comida MÁS IMPORTANTE del día</div>
+                        <div class="timeline-detail">Proteína 200g + carbohidrato + verduras + agua</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">💼 14:00 - 17:00 - TRABAJO</div>
+                        <div class="timeline-activity">Tareas freelance / reuniones</div>
+                        <div class="timeline-detail">Pomodoros: 50 min trabajo + 10 min descanso</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">🧉 17:30 PM - MERIENDA</div>
+                        <div class="timeline-activity">Mate + proteína + carbohidrato</div>
+                        <div class="timeline-detail">Tostadas con queso, yogur, sándwich saludable</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">💼 18:00 - 18:45 - CIERRE DEL DÍA LABORAL</div>
+                        <div class="timeline-activity">Cerrar tareas pendientes de programación</div>
+                        <div class="timeline-detail">Preparate mentalmente para el turno en Burger Tilin</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">🎒 18:45 PM - PREPARAR KIT</div>
+                        <div class="timeline-activity">Botella de agua + frutos secos + fruta + termo de mate</div>
+                        <div class="timeline-detail">Tu kit anti-chatarra para aguantar el turno</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">🌙 21:30 PM - CENA (durante el turno)</div>
+                        <div class="timeline-activity">Comida balanceada en casa de tu hermano</div>
+                        <div class="timeline-detail">Pollo/carne/cerdo + ensalada o verduras + carbohidrato moderado</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">🍔 19:00 - 01:00 - BURGER TILIN</div>
+                        <div class="timeline-activity">Turno de trabajo (smash burgers)</div>
+                        <div class="timeline-detail">Llevá kit anti-chatarra: agua, frutos secos, fruta</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">🚿 1:00 AM - RELAX POST-TRABAJO</div>
+                        <div class="timeline-activity">Ducha + agua + estiramiento (10 min)</div>
+                        <div class="timeline-detail">Volviste cansado. Higiene + relax corto y a dormir.</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-time">😴 1:30 AM - 2:00 AM - DORMIR</div>
+                        <div class="timeline-activity">7 horas de sueño hasta 9:00 AM</div>
+                        <div class="timeline-detail">Habitación oscura, fresca, sin pantallas</div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    💡 <strong>Flexibilidad:</strong> Si tenés smash burgers ese día, movés cena a antes (19hs ligera) y la rutina diaria se adapta. Pero el HORARIO IDEAL es este.
+                </div>
+            </div>
+        </section>
+
+        <!-- ============== ENTRENAMIENTO ============== -->
+        <section id="entrenamiento">
+            <h2>🏋️ Plan de Entrenamiento - 5 Días</h2>
+
+            <div class="success-box">
+                ✅ <strong>Lo que ya sabés que funciona:</strong> Hace 1 mes hiciste exactamente esto y te sentías increíble. Mismo plan, ahora con más estructura.
+            </div>
+
+            <div class="grid-2">
+
+                <!-- LUNES -->
+                <div class="day-card">
+                    <div class="day-title">📅 LUNES <span style="color: #00ff88;">💪</span></div>
+                    <div class="day-focus">Pecho + Bíceps · 45-60 min · CALISTENIA PURA (sin mancuernas)</div>
+
+                    <h4>🔥 Calentamiento (5 min)</h4>
+                    <ul class="exercise-list">
+                        <li><span class="exercise-name">Rotaciones de brazos</span><span class="exercise-sets">10 repeticiones</span></li>
+                        <li><span class="exercise-name">Flexiones suaves</span><span class="exercise-sets">15 repeticiones</span></li>
+                    </ul>
+
+                    <h4>💪 Pecho (con tu propio peso corporal)</h4>
+                    <ul class="exercise-list">
+                        <li><span class="exercise-name">Flexiones normales</span><span class="exercise-sets">4x10-15</span></li>
+                        <li><span class="exercise-name">Flexiones diamante (manos juntas)</span><span class="exercise-sets">3x8-12</span></li>
+                        <li><span class="exercise-name">Flexiones inclinados (pies en silla)</span><span class="exercise-sets">3x8-12</span></li>
+                        <li><span class="exercise-name">Fondos en silla</span><span class="exercise-sets">3x10-15</span></li>
+                    </ul>
+
+                    <h4>💪 Bíceps (con barra de dominadas)</h4>
+                    <ul class="exercise-list">
+                        <li><span class="exercise-name">Dominadas supinas (palmas hacia vos)</span><span class="exercise-sets">4x6-10</span></li>
+                        <li><span class="exercise-name">Flexión de bíceps con mochila</span><span class="exercise-sets">3x10-12</span></li>
+                        <li><span class="exercise-name">Plancha</span><span class="exercise-sets">3x30-45 seg</span></li>
+                    </ul>
+
+                    <h4>🧘 Estiramiento (5 min)</h4>
+                    <p style="font-size: 0.9em; color: #aaa;">Pecho, brazos, deltoides</p>
+                </div>
+
+                <!-- MARTES -->
+                <div class="day-card">
+                    <div class="day-title">📅 MARTES <span style="color: #00ff88;">🦵</span></div>
+                    <div class="day-focus">Piernas + Glúteos · 45-60 min · Sin equipo (mochila como peso)</div>
+
+                    <h4>🔥 Calentamiento (5 min)</h4>
+                    <ul class="exercise-list">
+                        <li><span class="exercise-name">Sentadillas sin peso</span><span class="exercise-sets">20 repeticiones</span></li>
+                        <li><span class="exercise-name">Saltos en el lugar</span><span class="exercise-sets">30 seg</span></li>
+                    </ul>
+
+                    <h4>💪 Piernas (peso corporal + mochila)</h4>
+                    <ul class="exercise-list">
+                        <li><span class="exercise-name">Sentadillas profundas</span><span class="exercise-sets">4x15-20</span></li>
+                        <li><span class="exercise-name">Sentadillas con mochila pesada</span><span class="exercise-sets">3x10-15</span></li>
+                        <li><span class="exercise-name">Estocadas caminando</span><span class="exercise-sets">3x12 c/pierna</span></li>
+                        <li><span class="exercise-name">Sentadilla búlgara (pie atrás en silla)</span><span class="exercise-sets">3x10 c/pierna</span></li>
+                        <li><span class="exercise-name">Puente de glúteos</span><span class="exercise-sets">3x15-20</span></li>
+                        <li><span class="exercise-name">Sentadillas con salto</span><span class="exercise-sets">3x10-15</span></li>
+                        <li><span class="exercise-name">Elevaciones de gemelos</span><span class="exercise-sets">3x20-25</span></li>
+                    </ul>
+
+                    <h4>🧘 Estiramiento (5 min)</h4>
+                    <p style="font-size: 0.9em; color: #aaa;">Cuádriceps, isquiotibiales, glúteos</p>
+                </div>
+
+                <!-- MIERCOLES -->
+                <div class="day-card">
+                    <div class="day-title">📅 MIÉRCOLES <span style="color: #00ff88;">🤸</span></div>
+                    <div class="day-focus">Calistenia cuerpo completo + Cardio · 40-50 min</div>
+
+                    <h4>🔥 Calentamiento (5 min)</h4>
+                    <p style="font-size: 0.9em; color: #aaa;">Movilidad articular general</p>
+
+                    <h4>💪 Circuito de Alta Intensidad (3 rondas)</h4>
+                    <ul class="exercise-list">
+                        <li><span class="exercise-name">Escaladores</span><span class="exercise-sets">30 seg</span></li>
+                        <li><span class="exercise-name">Burpees</span><span class="exercise-sets">20 seg</span></li>
+                        <li><span class="exercise-name">Plancha</span><span class="exercise-sets">40 seg</span></li>
+                        <li><span class="exercise-name">Sentadillas con salto</span><span class="exercise-sets">30 seg</span></li>
+                        <li><span class="exercise-name">Flexiones explosivos</span><span class="exercise-sets">20 seg</span></li>
+                        <li><span class="exercise-name">Rodillas al pecho</span><span class="exercise-sets">30 seg</span></li>
+                        <li><span class="exercise-name">DESCANSO entre rondas</span><span class="exercise-sets">2 min</span></li>
+                    </ul>
+
+                    <h4>🎯 Habilidades Calistenia</h4>
+                    <ul class="exercise-list">
+                        <li><span class="exercise-name">Dominadas</span><span class="exercise-sets">3x6-10</span></li>
+                        <li><span class="exercise-name">Mantener piernas en L (en barra o piso)</span><span class="exercise-sets">3x10-15 seg</span></li>
+                        <li><span class="exercise-name">Vertical contra pared</span><span class="exercise-sets">3x20-30 seg</span></li>
+                    </ul>
+                </div>
+
+                <!-- JUEVES -->
+                <div class="day-card rest">
+                    <div class="day-title">📅 JUEVES <span style="color: #ffaa00;">🛌</span></div>
+                    <div class="day-focus" style="color: #ffaa00;">DÍA DE DESCANSO ACTIVO</div>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <strong>¿Qué hacer?</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Caminata 30 min (opcional)</li>
+                            <li>Estiramiento ligero (15 min)</li>
+                            <li>Hidratación extra (3L)</li>
+                            <li>Comer proteína normal</li>
+                            <li>Dormir 8 horas (recuperación)</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        ⚠️ <strong>NO entrenes intenso.</strong> El descanso ES parte del progreso muscular. Sin descanso, no hay crecimiento.
+                    </div>
+                </div>
+
+                <!-- VIERNES -->
+                <div class="day-card">
+                    <div class="day-title">📅 VIERNES <span style="color: #00ff88;">🔙</span></div>
+                    <div class="day-focus">Espalda + Abdominales · 50-60 min · Solo barra dominadas y peso corporal</div>
+
+                    <h4>🔥 Calentamiento (5 min)</h4>
+                    <ul class="exercise-list">
+                        <li><span class="exercise-name">Rotaciones de hombros</span><span class="exercise-sets">10 repeticiones</span></li>
+                        <li><span class="exercise-name">Dominadas suaves</span><span class="exercise-sets">8 repeticiones</span></li>
+                    </ul>
+
+                    <h4>💪 Espalda (con barra y peso corporal)</h4>
+                    <ul class="exercise-list">
+                        <li><span class="exercise-name">Dominadas</span><span class="exercise-sets">4x6-10</span></li>
+                        <li><span class="exercise-name">Remo invertido (debajo de mesa)</span><span class="exercise-sets">4x10-12</span></li>
+                        <li><span class="exercise-name">Encogimientos con mochila</span><span class="exercise-sets">3x12-15</span></li>
+                        <li><span class="exercise-name">Súperman (acostado boca abajo)</span><span class="exercise-sets">3x12-15</span></li>
+                    </ul>
+
+                    <h4>🎯 Abdominales (núcleo)</h4>
+                    <ul class="exercise-list">
+                        <li><span class="exercise-name">Plancha lateral</span><span class="exercise-sets">3x20-30 seg c/lado</span></li>
+                        <li><span class="exercise-name">Abdominales</span><span class="exercise-sets">3x15-20</span></li>
+                        <li><span class="exercise-name">Giros rusos (torsiones)</span><span class="exercise-sets">3x20 (10 c/lado)</span></li>
+                        <li><span class="exercise-name">Escaladores</span><span class="exercise-sets">3x30 seg</span></li>
+                    </ul>
+                </div>
+
+                <!-- SAB-DOM -->
+                <div class="day-card rest">
+                    <div class="day-title">📅 SÁBADO + DOMINGO <span style="color: #ffaa00;">🎉</span></div>
+                    <div class="day-focus" style="color: #ffaa00;">FIN DE SEMANA - DESCANSO</div>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <strong>Opciones:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Caminata larga con tu novia</li>
+                            <li>Deporte recreativo (fútbol, bici)</li>
+                            <li>Yoga o estiramiento extendido</li>
+                            <li>NADA - descanso total</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        💡 <strong>Asado dominguero permitido:</strong> El "comida libre" del domingo es parte del sistema. Disfrutá sin culpa.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>📈 Progresión Gradual (Cómo crecer músculo)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Semana</th>
+                            <th>Objetivo</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Aprender forma</td>
+                            <td>Flexiones 4x8 con buena técnica</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>+1-2 reps</td>
+                            <td>Flexiones 4x10</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>+1-2 reps</td>
+                            <td>Flexiones 4x12</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Aumentar dificultad</td>
+                            <td>Flexiones con peso o diamante 4x10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============== ALIMENTACION ============== -->
+        <section id="alimentacion">
+            <h2>🍽️ Plan de Alimentación Completo</h2>
+
+            <div class="info-box">
+                💡 <strong>Macros diarios objetivo (para ganar masa):</strong><br>
+                Calorías: 2200-2500 kcal · Proteína: 140-160g · Carbohidratos: 250-300g · Grasas: 70-80g
+            </div>
+
+            <!-- DESAYUNO -->
+            <div class="card">
+                <h3>🌅 DESAYUNO (9:00 AM)</h3>
+                <p style="color: #aaa; margin-bottom: 15px;">5 opciones para rotar - todas balanceadas</p>
+
+                <div class="grid-3">
+                    <div class="food-card">
+                        <span class="food-emoji">🍳</span>
+                        <div class="food-name">Clásico Argentino</div>
+                        <div class="food-desc">3 huevos + 2 tostadas integrales + queso untable + banana + café con leche</div>
+                        <div class="food-stats">
+                            <span>🔥 480 kcal</span>
+                            <span>🥩 30g proteína</span>
+                            <span>🌾 50g carbohidratos</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥣</span>
+                        <div class="food-name">Avena Power</div>
+                        <div class="food-desc">Avena (3 cdas) cocida con leche + 1 cucharada miel + banana cortada + nueces + mate</div>
+                        <div class="food-stats">
+                            <span>🔥 520 kcal</span>
+                            <span>🥩 18g proteína</span>
+                            <span>🌾 70g carbohidratos</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍳</span>
+                        <div class="food-name">Tostadas + Huevo</div>
+                        <div class="food-desc">2 tostadas integrales + queso untable + 2 huevos revueltos + tomate en rodajas + café</div>
+                        <div class="food-stats">
+                            <span>🔥 530 kcal</span>
+                            <span>🥩 28g proteína</span>
+                            <span>🌾 45g carbohidratos</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍓</span>
+                        <div class="food-name">Yogur con Sabor</div>
+                        <div class="food-desc">2 yogures con sabor (frutilla, vainilla) + granola + frutillas o banana + 1 cda miel</div>
+                        <div class="food-stats">
+                            <span>🔥 420 kcal</span>
+                            <span>🥩 18g proteína</span>
+                            <span>🌾 55g carbohidratos</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥤</span>
+                        <div class="food-name">Licuado Rápido</div>
+                        <div class="food-desc">1 banana + 1 medida de proteína + 250ml leche + avena + 2 tostadas con dulce de leche light</div>
+                        <div class="food-stats">
+                            <span>🔥 550 kcal</span>
+                            <span>🥩 35g proteína</span>
+                            <span>🌾 65g carbohidratos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="danger-box">
+                    ❌ <strong>EVITAR en el desayuno:</strong> Galletitas dulces (Sonrisas, Oreo), cereales azucarados (Choco Krispis), medialunas todos los días, chocolatada con mucho azúcar.
+                </div>
+            </div>
+
+            <!-- ALMUERZO -->
+            <div class="card">
+                <h3>🍽️ ALMUERZO (13:00 PM) - La comida MÁS IMPORTANTE</h3>
+
+                <div class="meal-plan-grid">
+                    <div class="meal-day">
+                        <h4>🍗 LUNES</h4>
+                        <div class="meal-item"><strong>Plato:</strong> Pollo a la plancha</div>
+                        <div class="meal-item"><strong>Cantidades:</strong> 1 muslo + 1 pechuga (200g)</div>
+                        <div class="meal-item"><strong>Acompañamiento:</strong> Arroz blanco (1 taza cocido)</div>
+                        <div class="meal-item"><strong>Verdura:</strong> Ensalada (lechuga + tomate + zanahoria) con aceite oliva</div>
+                        <div class="meal-item">🔥 600 kcal · 🥩 45g proteína</div>
+                    </div>
+
+                    <div class="meal-day">
+                        <h4>🥩 MARTES</h4>
+                        <div class="meal-item"><strong>Plato:</strong> Carne molida salteada</div>
+                        <div class="meal-item"><strong>Cantidades:</strong> 200g carne magra (12% grasa)</div>
+                        <div class="meal-item"><strong>Cocción:</strong> Con cebolla + morrón + tomate</div>
+                        <div class="meal-item"><strong>Acompañamiento:</strong> Puré de papa o papa al horno</div>
+                        <div class="meal-item">🔥 650 kcal · 🥩 40g proteína</div>
+                    </div>
+
+                    <div class="meal-day">
+                        <h4>🥖 MIÉRCOLES</h4>
+                        <div class="meal-item"><strong>Plato:</strong> Milanesa AL HORNO (no frita)</div>
+                        <div class="meal-item"><strong>Cantidades:</strong> 2 milanesas pollo o carne (200g)</div>
+                        <div class="meal-item"><strong>Acompañamiento:</strong> Papas al horno con romero</div>
+                        <div class="meal-item"><strong>Verdura:</strong> Lechuga + huevo duro + tomate</div>
+                        <div class="meal-item">🔥 700 kcal · 🥩 45g proteína</div>
+                    </div>
+
+                    <div class="meal-day">
+                        <h4>🍝 JUEVES</h4>
+                        <div class="meal-item"><strong>Plato:</strong> Pasta integral con bolognesa</div>
+                        <div class="meal-item"><strong>Cantidades:</strong> 80g pasta cruda</div>
+                        <div class="meal-item"><strong>Salsa:</strong> Carne molida + tomate triturado + ajo</div>
+                        <div class="meal-item"><strong>Extra:</strong> Queso rallado por encima (2 cdas)</div>
+                        <div class="meal-item">🔥 650 kcal · 🥩 35g proteína</div>
+                    </div>
+
+                    <div class="meal-day">
+                        <h4>🥩 VIERNES</h4>
+                        <div class="meal-item"><strong>Plato:</strong> Bife de chorizo a la plancha</div>
+                        <div class="meal-item"><strong>Cantidades:</strong> 200g (un bife mediano)</div>
+                        <div class="meal-item"><strong>Acompañamiento:</strong> Arroz integral (1 taza)</div>
+                        <div class="meal-item"><strong>Verdura:</strong> Zapallo + zanahoria + choclo al wok</div>
+                        <div class="meal-item">🔥 700 kcal · 🥩 50g proteína</div>
+                    </div>
+
+                    <div class="meal-day">
+                        <h4>🐷 SÁBADO</h4>
+                        <div class="meal-item"><strong>Plato:</strong> Lomo o bondiola de cerdo a la plancha</div>
+                        <div class="meal-item"><strong>Cantidades:</strong> 200g (con sal, ajo, limón)</div>
+                        <div class="meal-item"><strong>Acompañamiento:</strong> Papa al horno con romero</div>
+                        <div class="meal-item"><strong>Verdura:</strong> Zapallo asado + ensalada de espinaca</div>
+                        <div class="meal-item">🔥 650 kcal · 🥩 45g proteína</div>
+                    </div>
+
+                    <div class="meal-day">
+                        <h4>🔥 DOMINGO</h4>
+                        <div class="meal-item"><strong>Plato:</strong> ASADO (día libre permitido)</div>
+                        <div class="meal-item"><strong>Cantidades:</strong> 250-300g carne</div>
+                        <div class="meal-item"><strong>Acompañamiento:</strong> Ensalada criolla (cebolla+tomate+perejil)</div>
+                        <div class="meal-item"><strong>Pan:</strong> 1 rebanada (no más)</div>
+                        <div class="meal-item">🔥 800 kcal · 🥩 55g proteína</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MERIENDA -->
+            <div class="card">
+                <h3>🧉 MERIENDA (17:30 PM) - Estilo Argentino</h3>
+
+                <div class="grid-3">
+                    <div class="food-card">
+                        <span class="food-emoji">🧉</span>
+                        <div class="food-name">Mate Tradicional</div>
+                        <div class="food-desc">Mate + 2 tostadas integrales + queso dambo + tomate + 1 manzana</div>
+                        <div class="food-stats">
+                            <span>🔥 350 kcal</span>
+                            <span>🥩 15g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥪</span>
+                        <div class="food-name">Sándwich Saludable</div>
+                        <div class="food-desc">Pan integral + jamón cocido + queso dambo o cheddar + tomate + lechuga</div>
+                        <div class="food-stats">
+                            <span>🔥 380 kcal</span>
+                            <span>🥩 22g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍓</span>
+                        <div class="food-name">Yogur con Sabor + Granola</div>
+                        <div class="food-desc">Yogur de frutilla o vainilla (en pote) + granola + banana cortada</div>
+                        <div class="food-stats">
+                            <span>🔥 340 kcal</span>
+                            <span>🥩 12g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">💪</span>
+                        <div class="food-name">Batido Proteico</div>
+                        <div class="food-desc">1 medida de proteína + 250ml leche + 1 banana + puñado almendras</div>
+                        <div class="food-stats">
+                            <span>🔥 380 kcal</span>
+                            <span>🥩 35g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍳</span>
+                        <div class="food-name">Tostadas Huevo</div>
+                        <div class="food-desc">2 tostadas integrales + queso untable + huevo duro picado + tomate + sal</div>
+                        <div class="food-stats">
+                            <span>🔥 400 kcal</span>
+                            <span>🥩 22g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍎</span>
+                        <div class="food-name">Colación Simple</div>
+                        <div class="food-desc">Manzana + puñado de almendras + mate cocido + 1 yogur con sabor</div>
+                        <div class="food-stats">
+                            <span>🔥 320 kcal</span>
+                            <span>🥩 10g proteína</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENA -->
+            <div class="card">
+                <h3>🌙 CENA (21:30 PM) - Balanceada</h3>
+
+                <div class="grid-3">
+                    <div class="food-card">
+                        <span class="food-emoji">🍗</span>
+                        <div class="food-name">Pollo + Verduras</div>
+                        <div class="food-desc">Pechuga (150g) a la plancha + zapallo + zanahoria + papa pequeña al horno</div>
+                        <div class="food-stats">
+                            <span>🔥 500 kcal</span>
+                            <span>🥩 40g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍳</span>
+                        <div class="food-name">Tortilla Española</div>
+                        <div class="food-desc">3 huevos + papa + cebolla + ensalada de lechuga y tomate</div>
+                        <div class="food-stats">
+                            <span>🔥 480 kcal</span>
+                            <span>🥩 25g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🐷</span>
+                        <div class="food-name">Cerdo + Arroz</div>
+                        <div class="food-desc">Lomo o bondiola de cerdo (180g) a la plancha + arroz integral + zanahoria salteada</div>
+                        <div class="food-stats">
+                            <span>🔥 520 kcal</span>
+                            <span>🥩 38g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥗</span>
+                        <div class="food-name">Ensalada Cargada</div>
+                        <div class="food-desc">Lechuga + huevo duro + tomate + queso dambo + jamón cocido + 1 rebanada pan integral</div>
+                        <div class="food-stats">
+                            <span>🔥 450 kcal</span>
+                            <span>🥩 30g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🌯</span>
+                        <div class="food-name">Rollito Saludable</div>
+                        <div class="food-desc">Rollito integral + pollo desmenuzado + queso cheddar + lechuga + tomate</div>
+                        <div class="food-stats">
+                            <span>🔥 500 kcal</span>
+                            <span>🥩 32g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍲</span>
+                        <div class="food-name">Sopa de Zapallo + Sándwich</div>
+                        <div class="food-desc">Sopa casera de zapallo + sándwich pequeño (pan integral + queso dambo + jamón)</div>
+                        <div class="food-stats">
+                            <span>🔥 420 kcal</span>
+                            <span>🥩 22g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥚</span>
+                        <div class="food-name">Huevos Revueltos</div>
+                        <div class="food-desc">3 huevos revueltos + verduras salteadas (espinaca, cebolla, tomate) + 1 rebanada pan</div>
+                        <div class="food-stats">
+                            <span>🔥 450 kcal</span>
+                            <span>🥩 25g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍝</span>
+                        <div class="food-name">Pasta Liviana</div>
+                        <div class="food-desc">Tallarines (60g) + salsa de tomate casera + queso rallado + ensalada chica</div>
+                        <div class="food-stats">
+                            <span>🔥 470 kcal</span>
+                            <span>🥩 18g proteína</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥩</span>
+                        <div class="food-name">Bife Liviano</div>
+                        <div class="food-desc">Bife (150g) a la plancha + ensalada de lechuga, tomate, zanahoria + 1 papa hervida</div>
+                        <div class="food-stats">
+                            <span>🔥 510 kcal</span>
+                            <span>🥩 40g proteína</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    ⏰ <strong>Si la cena es tarde (22hs):</strong> Comé MENOS carbohidrato (sin papa o pan), MÁS proteína y verdura. Tu cuerpo no necesita energía si vas a dormir en 4 horas.
+                </div>
+            </div>
+
+            <!-- BURGER TILIN -->
+            <div class="card">
+                <h3>🍔 BURGER TILIN (19:00 - 01:00) - Tu Trabajo</h3>
+
+                <div class="info-box">
+                    💡 <strong>Realidad:</strong> Trabajás 6 horas haciendo smash burgers. Estás rodeado de comida tentadora. La estrategia es comer ANTES bien (cena 21:30 con tu hermano) y tener un plan para el resto.
+                </div>
+
+                <h4>📦 Tu Kit Anti-Chatarra (llevá siempre)</h4>
+                <div class="grid-3">
+                    <div class="food-card">
+                        <span class="food-emoji">💧</span>
+                        <div class="food-name">Botella de agua 1.5L</div>
+                        <div class="food-desc">Hidratación constante durante el turno</div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥜</span>
+                        <div class="food-name">Frutos secos</div>
+                        <div class="food-desc">Puñado de almendras o nueces (saciante)</div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍌</span>
+                        <div class="food-name">1-2 Frutas</div>
+                        <div class="food-desc">Banana o manzana (energía rápida)</div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🧉</span>
+                        <div class="food-name">Termo con mate</div>
+                        <div class="food-desc">Te mantiene despierto sin azúcar</div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥪</span>
+                        <div class="food-name">Sándwich casero</div>
+                        <div class="food-desc">Pan integral + jamón + queso dambo (opcional)</div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍓</span>
+                        <div class="food-name">Yogur con sabor</div>
+                        <div class="food-desc">1 pote (colación en descanso)</div>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 20px;">🎯 Estrategia "Si Tengo Hambre"</h4>
+
+                <div class="success-box">
+                    <strong>SÍ podés (en orden):</strong>
+                    <ol style="margin-top: 10px; padding-left: 20px;">
+                        <li>Tomá agua primero (a veces es sed, no hambre)</li>
+                        <li>Comé fruta o frutos secos</li>
+                        <li>Sándwich casero o yogur</li>
+                        <li>Si MUY hambriento: 1 burger casera (sin papas, sin gaseosa)</li>
+                    </ol>
+                </div>
+
+                <div class="danger-box">
+                    <strong>❌ EVITÁ a toda costa:</strong>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>Gaseosa (Coca, Sprite) - reemplazá con agua o agua con limón</li>
+                        <li>Combo doble burger + papas grandes + gaseosa</li>
+                        <li>Helado o postres dulces a las 23hs</li>
+                        <li>Refrigerios empaquetados (Doritos, papas)</li>
+                    </ul>
+                </div>
+
+                <h4 style="margin-top: 20px;">💪 Reglas de Oro del Trabajo</h4>
+                <ul class="checklist">
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Cené ANTES de venir al trabajo (21:30)</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Llevé botella de agua 1.5L</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Llevé colaciones saludables</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>NO tomé gaseosa hoy</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>NO comí más de 1 burger</span></li>
+                </ul>
+
+                <div class="warning-box">
+                    📌 <strong>Realidad chequeada:</strong> Vas a comer mal algún día. NO ES CRISIS. Solo registralo en el meal-log.txt y al día siguiente volvés al carril. La consistencia gana al perfeccionismo.
+                </div>
+            </div>
+        </section>
+
+        <!-- ============== PRODUCTOS ============== -->
+        <section id="productos">
+            <h2>🛒 Productos Recomendados - Lista Completa</h2>
+
+            <div class="info-box">
+                💡 Estos son productos REALES que vas a encontrar en cualquier supermercado argentino (Coto, Carrefour, La Anónima, Día). Compras semanales aproximadas.
+            </div>
+
+            <details open>
+                <summary>🥩 PROTEÍNAS ANIMALES (Lo más importante)</summary>
+                <div class="grid-3" style="margin-top: 15px;">
+                    <div class="food-card">
+                        <span class="food-emoji">🍗</span>
+                        <div class="food-name">Pechuga de Pollo</div>
+                        <div class="food-desc">2 paquetes (1.5kg total)</div>
+                        <div class="food-stats">
+                            <span>🥩 31g proteína / 100g</span>
+                            <span>🔥 165 kcal / 100g</span>
+                            <span class="price-tag">~$8.000</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥩</span>
+                        <div class="food-name">Carne Molida Magra</div>
+                        <div class="food-desc">1 kg (12% grasa)</div>
+                        <div class="food-stats">
+                            <span>🥩 26g proteína / 100g</span>
+                            <span>🔥 200 kcal / 100g</span>
+                            <span class="price-tag">~$6.000</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥩</span>
+                        <div class="food-name">Bife (chorizo/cuadril)</div>
+                        <div class="food-desc">4-6 bifes</div>
+                        <div class="food-stats">
+                            <span>🥩 28g proteína / 100g</span>
+                            <span>🔥 220 kcal / 100g</span>
+                            <span class="price-tag">~$10.000</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🐷</span>
+                        <div class="food-name">Cerdo (lomo o bondiola)</div>
+                        <div class="food-desc">600g</div>
+                        <div class="food-stats">
+                            <span>🥩 22g proteína / 100g</span>
+                            <span>🔥 145 kcal / 100g</span>
+                            <span class="price-tag">~$5.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥚</span>
+                        <div class="food-name">Huevos</div>
+                        <div class="food-desc">30 unidades (un maple)</div>
+                        <div class="food-stats">
+                            <span>🥩 6g proteína c/u</span>
+                            <span>🔥 75 kcal c/u</span>
+                            <span class="price-tag">~$5.000</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥓</span>
+                        <div class="food-name">Jamón cocido</div>
+                        <div class="food-desc">300g (de máquina)</div>
+                        <div class="food-stats">
+                            <span>🥩 18g proteína / 100g</span>
+                            <span>🔥 110 kcal / 100g</span>
+                            <span class="price-tag">~$3.500</span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details>
+                <summary>🌾 CARBOHIDRATOS</summary>
+                <div class="grid-3" style="margin-top: 15px;">
+                    <div class="food-card">
+                        <span class="food-emoji">🍚</span>
+                        <div class="food-name">Arroz blanco</div>
+                        <div class="food-desc">1 paquete 1kg</div>
+                        <div class="food-stats">
+                            <span>🌾 78g carbo / 100g</span>
+                            <span>🔥 360 kcal / 100g</span>
+                            <span class="price-tag">~$1.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🌾</span>
+                        <div class="food-name">Arroz integral</div>
+                        <div class="food-desc">1 paquete 500g</div>
+                        <div class="food-stats">
+                            <span>🌾 75g carbo / 100g</span>
+                            <span>🔥 350 kcal / 100g</span>
+                            <span class="price-tag">~$2.000</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥣</span>
+                        <div class="food-name">Avena</div>
+                        <div class="food-desc">1 paquete 500g (Quaker o similar)</div>
+                        <div class="food-stats">
+                            <span>🌾 60g carbo / 100g</span>
+                            <span>🥩 13g proteína / 100g</span>
+                            <span class="price-tag">~$2.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍝</span>
+                        <div class="food-name">Pasta integral</div>
+                        <div class="food-desc">1 paquete 500g</div>
+                        <div class="food-stats">
+                            <span>🌾 70g carbo / 100g</span>
+                            <span>🔥 360 kcal / 100g</span>
+                            <span class="price-tag">~$1.800</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥖</span>
+                        <div class="food-name">Pan integral</div>
+                        <div class="food-desc">1 paquete (Bimbo o similar)</div>
+                        <div class="food-stats">
+                            <span>🌾 45g carbo / 100g</span>
+                            <span>🔥 250 kcal / 100g</span>
+                            <span class="price-tag">~$2.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥔</span>
+                        <div class="food-name">Papas + Camote</div>
+                        <div class="food-desc">1 kg papas + 2 camotes</div>
+                        <div class="food-stats">
+                            <span>🌾 17g carbo / 100g</span>
+                            <span>🔥 80 kcal / 100g</span>
+                            <span class="price-tag">~$2.000</span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details>
+                <summary>🥦 VERDURAS Y FRUTAS</summary>
+                <div class="grid-3" style="margin-top: 15px;">
+                    <div class="food-card">
+                        <span class="food-emoji">🥬</span>
+                        <div class="food-name">Verduras de hoja</div>
+                        <div class="food-desc">Lechuga, espinaca, rúcula</div>
+                        <div class="food-stats">
+                            <span>🍃 Vitaminas A, C, K</span>
+                            <span>🔥 15-20 kcal / 100g</span>
+                            <span class="price-tag">~$1.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍅</span>
+                        <div class="food-name">Tomate</div>
+                        <div class="food-desc">1 kg + cherry para ensalada</div>
+                        <div class="food-stats">
+                            <span>🍃 Licopeno (antioxidante)</span>
+                            <span>🔥 18 kcal / 100g</span>
+                            <span class="price-tag">~$2.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥕</span>
+                        <div class="food-name">Zanahoria + Cebolla</div>
+                        <div class="food-desc">500g de cada uno</div>
+                        <div class="food-stats">
+                            <span>🍃 Vitamina A + C</span>
+                            <span>🔥 40 kcal / 100g</span>
+                            <span class="price-tag">~$1.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🎃</span>
+                        <div class="food-name">Zapallo</div>
+                        <div class="food-desc">1 unidad mediana (ideal para sopas y horno)</div>
+                        <div class="food-stats">
+                            <span>🍃 Vitamina A + fibra</span>
+                            <span>🔥 26 kcal / 100g</span>
+                            <span class="price-tag">~$1.800</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🌽</span>
+                        <div class="food-name">Choclo</div>
+                        <div class="food-desc">2-3 unidades o lata 300g</div>
+                        <div class="food-stats">
+                            <span>🌾 19g carbo / 100g</span>
+                            <span>🔥 86 kcal / 100g</span>
+                            <span class="price-tag">~$1.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥬</span>
+                        <div class="food-name">Espinaca + Rúcula</div>
+                        <div class="food-desc">2 atados</div>
+                        <div class="food-stats">
+                            <span>🍃 Hierro + ácido fólico</span>
+                            <span>🔥 23 kcal / 100g</span>
+                            <span class="price-tag">~$1.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍌</span>
+                        <div class="food-name">Bananas</div>
+                        <div class="food-desc">1 docena</div>
+                        <div class="food-stats">
+                            <span>🍃 Potasio, energía</span>
+                            <span>🔥 90 kcal c/u</span>
+                            <span class="price-tag">~$1.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍎</span>
+                        <div class="food-name">Manzanas + Naranjas</div>
+                        <div class="food-desc">6 + 4 unidades</div>
+                        <div class="food-stats">
+                            <span>🍃 Fibra + Vitamina C</span>
+                            <span>🔥 50-80 kcal c/u</span>
+                            <span class="price-tag">~$2.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍓</span>
+                        <div class="food-name">Frutillas</div>
+                        <div class="food-desc">500g (cuando hay)</div>
+                        <div class="food-stats">
+                            <span>🍃 Antioxidantes, vit. C</span>
+                            <span>🔥 32 kcal / 100g</span>
+                            <span class="price-tag">~$3.000</span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details>
+                <summary>🥛 LÁCTEOS</summary>
+                <div class="grid-3" style="margin-top: 15px;">
+                    <div class="food-card">
+                        <span class="food-emoji">🥛</span>
+                        <div class="food-name">Leche</div>
+                        <div class="food-desc">2L (descremada o entera)</div>
+                        <div class="food-stats">
+                            <span>🥩 3g proteína / 100ml</span>
+                            <span>🔥 50 kcal / 100ml</span>
+                            <span class="price-tag">~$2.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍓</span>
+                        <div class="food-name">Yogur con Sabor</div>
+                        <div class="food-desc">8 potes (frutilla, vainilla, durazno - SanCor, La Serenísima)</div>
+                        <div class="food-stats">
+                            <span>🥩 4g proteína / pote</span>
+                            <span>🔥 100-130 kcal / pote</span>
+                            <span class="price-tag">~$4.000</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🧀</span>
+                        <div class="food-name">Queso Dambo</div>
+                        <div class="food-desc">500g (de máquina o feteado)</div>
+                        <div class="food-stats">
+                            <span>🥩 25g proteína / 100g</span>
+                            <span>🔥 350 kcal / 100g</span>
+                            <span class="price-tag">~$4.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🟡</span>
+                        <div class="food-name">Queso Cheddar</div>
+                        <div class="food-desc">300g (en feta o bloque)</div>
+                        <div class="food-stats">
+                            <span>🥩 25g proteína / 100g</span>
+                            <span>🔥 400 kcal / 100g</span>
+                            <span class="price-tag">~$4.000</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🧀</span>
+                        <div class="food-name">Queso untable light</div>
+                        <div class="food-desc">300g (Casancrem light)</div>
+                        <div class="food-stats">
+                            <span>🥩 12g proteína / 100g</span>
+                            <span>🔥 180 kcal / 100g</span>
+                            <span class="price-tag">~$2.500</span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details>
+                <summary>💊 EXTRAS Y SUPLEMENTOS</summary>
+                <div class="grid-3" style="margin-top: 15px;">
+                    <div class="food-card">
+                        <span class="food-emoji">💪</span>
+                        <div class="food-name">Proteína de Suero</div>
+                        <div class="food-desc">1 kg (ENA, Star Nutrition o similar)</div>
+                        <div class="food-stats">
+                            <span>🥩 24g proteína / medida</span>
+                            <span>🔥 110 kcal / medida</span>
+                            <span class="price-tag">~$25.000</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🥜</span>
+                        <div class="food-name">Almendras + Nueces</div>
+                        <div class="food-desc">500g mix</div>
+                        <div class="food-stats">
+                            <span>🥩 20g proteína / 100g</span>
+                            <span>🔥 600 kcal / 100g</span>
+                            <span class="price-tag">~$5.000</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🫒</span>
+                        <div class="food-name">Aceite de oliva</div>
+                        <div class="food-desc">500ml</div>
+                        <div class="food-stats">
+                            <span>🥑 Grasas monoinsaturadas</span>
+                            <span>🔥 900 kcal / 100ml</span>
+                            <span class="price-tag">~$3.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🍯</span>
+                        <div class="food-name">Miel</div>
+                        <div class="food-desc">500g (frasco)</div>
+                        <div class="food-stats">
+                            <span>🌾 80g azúcar natural</span>
+                            <span>🔥 320 kcal / 100g</span>
+                            <span class="price-tag">~$3.000</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">🧉</span>
+                        <div class="food-name">Yerba Mate</div>
+                        <div class="food-desc">1kg (Taragüi, Rosamonte, etc)</div>
+                        <div class="food-stats">
+                            <span>🍃 Cafeína natural</span>
+                            <span>☕ Antioxidantes</span>
+                            <span class="price-tag">~$3.500</span>
+                        </div>
+                    </div>
+
+                    <div class="food-card">
+                        <span class="food-emoji">☕</span>
+                        <div class="food-name">Café</div>
+                        <div class="food-desc">500g molido o instantáneo</div>
+                        <div class="food-stats">
+                            <span>☕ Cafeína</span>
+                            <span>🔥 0 kcal</span>
+                            <span class="price-tag">~$5.000</span>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>💰 Total Aproximado Semanal</h3>
+                <div class="stats-grid">
+                    <div class="stat-mini">
+                        <div class="stat-mini-num">$35-45k</div>
+                        <div class="stat-mini-label">ARS / semana</div>
+                    </div>
+                    <div class="stat-mini">
+                        <div class="stat-mini-num">$140-180k</div>
+                        <div class="stat-mini-label">ARS / mes</div>
+                    </div>
+                    <div class="stat-mini">
+                        <div class="stat-mini-num">~2200</div>
+                        <div class="stat-mini-label">kcal / día</div>
+                    </div>
+                    <div class="stat-mini">
+                        <div class="stat-mini-num">~150g</div>
+                        <div class="stat-mini-label">proteína / día</div>
+                    </div>
+                </div>
+                <p style="color: #aaa; font-size: 0.85em; margin-top: 10px;">* Precios aproximados Argentina 2026, varían según supermercado y zona.</p>
+            </div>
+
+            <div class="danger-box">
+                <strong>❌ NUNCA comprar (o muy esporádicamente):</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Gaseosas (Coca, Sprite, Pepsi) - 0 nutrientes, mucho azúcar</li>
+                    <li>Refrigerios empaquetados (Doritos, Pringles) - sodio + grasas trans</li>
+                    <li>Galletitas dulces (Sonrisas, Oreo) - azúcar pura</li>
+                    <li>Ultra-procesados (nuggets congelados, milanesas pre-fritas)</li>
+                    <li>Cereales azucarados (Choco Krispis, Frosted Flakes)</li>
+                    <li>Postres industriales (flan industrial, helados con muchos químicos)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============== HIDRATACION ============== -->
+        <section id="hidratacion">
+            <h2>💧 Hidratación - 2.5-3 Litros / Día</h2>
+
+            <div class="card">
+                <h3>📊 Distribución del Agua durante el Día</h3>
+                <div class="water-tracker" id="waterTracker">
+                    <span class="water-glass" onclick="toggleWater(this)" title="Vaso 1 (al despertar)">💧</span>
+                    <span class="water-glass" onclick="toggleWater(this)" title="Vaso 2 (al despertar)">💧</span>
+                    <span class="water-glass" onclick="toggleWater(this)" title="Vaso 3 (post-entreno)">💧</span>
+                    <span class="water-glass" onclick="toggleWater(this)" title="Vaso 4 (post-entreno)">💧</span>
+                    <span class="water-glass" onclick="toggleWater(this)" title="Vaso 5 (almuerzo)">💧</span>
+                    <span class="water-glass" onclick="toggleWater(this)" title="Vaso 6 (tarde)">💧</span>
+                    <span class="water-glass" onclick="toggleWater(this)" title="Vaso 7 (merienda)">💧</span>
+                    <span class="water-glass" onclick="toggleWater(this)" title="Vaso 8 (cena)">💧</span>
+                    <span class="water-glass" onclick="toggleWater(this)" title="Vaso 9 (extra)">💧</span>
+                    <span class="water-glass" onclick="toggleWater(this)" title="Vaso 10 (noche)">💧</span>
+                </div>
+                <p style="text-align: center; color: #aaa; font-size: 0.9em;">Click en cada vaso cuando lo tomes (10 vasos = 2.5L)</p>
+
+                <table style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Cantidad</th>
+                            <th>Por qué</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>8:30am</td><td>2 vasos</td><td>Cuerpo deshidratado al despertar</td></tr>
+                        <tr><td>10:30am (post-entreno)</td><td>500ml-1L</td><td>Recuperación + reposición</td></tr>
+                        <tr><td>13:00 (almuerzo)</td><td>1 vaso ANTES + 1 DURANTE</td><td>Mejor digestión</td></tr>
+                        <tr><td>15:00 (tarde)</td><td>1 vaso</td><td>Mantenimiento</td></tr>
+                        <tr><td>17:30 (merienda)</td><td>1 vaso + mate</td><td>Hidratación + energía</td></tr>
+                        <tr><td>21:30 (cena)</td><td>1 vaso</td><td>Digestión</td></tr>
+                        <tr><td>23:00 (noche)</td><td>1 vaso (no más)</td><td>Sin levantarse a orinar</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ============== SUEÑO ============== -->
+        <section id="sueño">
+            <h2>😴 Plan de Sueño</h2>
+
+            <div class="card">
+                <h3>🌙 Rutina de Desconexión (1:15-2:00 AM)</h3>
+
+                <div class="grid-2">
+                    <div>
+                        <h4>1:15 AM - Desenganche (15 min)</h4>
+                        <ul class="exercise-list">
+                            <li>📱 Cerrar laptop, celular en otra habitación</li>
+                            <li>💡 Luz tenue (lámpara de noche)</li>
+                            <li>🚿 Ducha tibia rápida (5 min)</li>
+                            <li>🪥 Cepillarse, higiene</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>1:30 AM - Relajación (30 min)</h4>
+                        <ul class="exercise-list">
+                            <li>📚 Lectura física (NO Kindle)</li>
+                            <li>🌬️ Respiración 4-7-8 (5 ciclos)</li>
+                            <li>🎵 Música lo-fi o ambient</li>
+                            <li>🧘 Estiramiento suave</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    💡 <strong>Por qué funciona:</strong> Scroll + juegos = dopamina constante. Tu cerebro NO puede dormir si está estimulado. La pantalla 30 min antes ya bloquea melatonina.
+                </div>
+
+                <h3 style="margin-top: 25px;">🛏️ Reglas del Dormitorio</h3>
+                <ul class="checklist">
+                    <li><div class="checkbox"></div><span>Habitación oscura (cortinas o antifaz)</span></li>
+                    <li><div class="checkbox"></div><span>Temperatura fresca (18-20°C)</span></li>
+                    <li><div class="checkbox"></div><span>Sin pantallas en la cama</span></li>
+                    <li><div class="checkbox"></div><span>Vaso de agua al lado</span></li>
+                    <li><div class="checkbox"></div><span>Alarma para 8:30 AM</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ============== CHECKLIST HOY ============== -->
+        <section id="checklist">
+            <h2>✅ Checklist Hoy (Marcá lo que hagas)</h2>
+
+            <div class="card">
+                <h3>🌅 MAÑANA</h3>
+                <ul class="checklist">
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Desperté 8:30 AM</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>2 vasos de agua al despertar</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Registro del día anterior - 2 min (9 AM)</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Desayuno con proteína (9 AM)</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Entrenamiento (10 AM)</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Licuado proteico post-entreno</span></li>
+                </ul>
+
+                <h3>☀️ MEDIODÍA</h3>
+                <ul class="checklist">
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Almuerzo balanceado (13:00)</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Vaso de agua antes y durante</span></li>
+                </ul>
+
+                <h3>🌆 TARDE</h3>
+                <ul class="checklist">
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Merienda con proteína (17:30)</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Mate o té</span></li>
+                </ul>
+
+                <h3>🌙 NOCHE</h3>
+                <ul class="checklist">
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Cena balanceada (21:30)</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Turno Burger Tilin sin chatarra (19-01)</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Relax post-trabajo: ducha + agua (1:00 AM)</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Dormir 1:30-2:00 AM</span></li>
+                </ul>
+
+                <h3>📊 TOTAL DEL DÍA</h3>
+                <ul class="checklist">
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>2.5L de agua</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>140g+ de proteína</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Sin gaseosa</span></li>
+                    <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Sin chatarra</span></li>
+                </ul>
+
+                <button class="reset-btn" onclick="resetChecklist()" style="background: #0f3460; color: #aaa; border: 1px solid #0f3460; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85em; margin-top: 15px;">↻ Resetear (nuevo día)</button>
+            </div>
+        </section>
+
+        <!-- ============== TRACKING ============== -->
+        <section id="seguimiento">
+            <h2>📊 Seguimiento - Mi Puntaje de Vida</h2>
+
+            <div class="card">
+                <h3>📋 Cómo registrar el Puntaje de Vida</h3>
+                <p style="margin-bottom: 15px;">Cada noche, antes de dormir (1:45 AM), completá tu journal con estos 4 pilares:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pilar</th>
+                            <th>Pregunta</th>
+                            <th>Puntos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>😴 Sueño</td><td>¿Dormí 7-8 horas con buena calidad?</td><td>0-25</td></tr>
+                        <tr><td>💪 Entrenamiento</td><td>¿Completé la sesión planificada?</td><td>0-25</td></tr>
+                        <tr><td>🍽️ Nutrición</td><td>¿Comí limpio (80%+)?</td><td>0-25</td></tr>
+                        <tr><td>😊 Ánimo</td><td>¿Me sentí bien con energía?</td><td>0-25</td></tr>
+                        <tr style="background: rgba(0, 255, 136, 0.1);"><td colspan="2"><strong>TOTAL</strong></td><td><strong>0-100</strong></td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    💡 <strong>Interpretación:</strong><br>
+                    90-100: Excelente · 80-89: Muy bien · 70-79: Bueno · 60-69: Pasable · &lt; 60: Algo no anduvo
+                </div>
+
+                <h3 style="margin-top: 25px;">📅 Frecuencia de revisiones</h3>
+                <ul class="exercise-list">
+                    <li><span class="exercise-name">Journal diario</span><span class="exercise-sets">2 min cada noche</span></li>
+                    <li><span class="exercise-name">Weekly review</span><span class="exercise-sets">15 min viernes</span></li>
+                    <li><span class="exercise-name">Pattern detection</span><span class="exercise-sets">15 min domingo</span></li>
+                    <li><span class="exercise-name">Revisión mensual</span><span class="exercise-sets">30 min día 1 del mes</span></li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🤖 Recordatorios Automáticos Activos</h3>
+                <p style="color: #aaa; margin-bottom: 15px;">Estos te llegan automáticamente:</p>
+
+                <div class="grid-2">
+                    <div class="upcoming" style="background: rgba(0, 212, 255, 0.05); border-left: 3px solid #00d4ff; padding: 12px; border-radius: 6px; margin: 8px 0;">
+                        <strong style="color: #00d4ff;">9:00 AM</strong> - Registro del día anterior + desayuno
+                    </div>
+                    <div class="upcoming" style="background: rgba(0, 212, 255, 0.05); border-left: 3px solid #00d4ff; padding: 12px; border-radius: 6px; margin: 8px 0;">
+                        <strong style="color: #00d4ff;">9:45 AM</strong> - Pre-entrenamiento (L-V)
+                    </div>
+                    <div class="upcoming" style="background: rgba(0, 212, 255, 0.05); border-left: 3px solid #00d4ff; padding: 12px; border-radius: 6px; margin: 8px 0;">
+                        <strong style="color: #00d4ff;">13:00 PM</strong> - Almuerzo argentino
+                    </div>
+                    <div class="upcoming" style="background: rgba(0, 212, 255, 0.05); border-left: 3px solid #00d4ff; padding: 12px; border-radius: 6px; margin: 8px 0;">
+                        <strong style="color: #00d4ff;">17:30 PM</strong> - Merienda con mate
+                    </div>
+                    <div class="upcoming" style="background: rgba(0, 212, 255, 0.05); border-left: 3px solid #00d4ff; padding: 12px; border-radius: 6px; margin: 8px 0;">
+                        <strong style="color: #00d4ff;">21:30 PM</strong> - Cena balanceada
+                    </div>
+                    <div class="upcoming" style="background: rgba(0, 212, 255, 0.05); border-left: 3px solid #00d4ff; padding: 12px; border-radius: 6px; margin: 8px 0;">
+                        <strong style="color: #00d4ff;">1:00 AM</strong> - Relax post-trabajo (volver de Burger Tilin)
+                    </div>
+                    <div class="upcoming" style="background: rgba(0, 212, 255, 0.05); border-left: 3px solid #00d4ff; padding: 12px; border-radius: 6px; margin: 8px 0;">
+                        <strong style="color: #00d4ff;">Viernes 19:00</strong> - Revisión Semanal
+                    </div>
+                    <div class="upcoming" style="background: rgba(0, 212, 255, 0.05); border-left: 3px solid #00d4ff; padding: 12px; border-radius: 6px; margin: 8px 0;">
+                        <strong style="color: #00d4ff;">Domingo 19:00</strong> - Detección de patrones
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </div>
+        <!-- ============== FIN TAB LAUTARO ============== -->
+
+        <!-- ============================================ -->
+        <!-- ============== TAB ROCIO ============== -->
+        <!-- ============================================ -->
+        <div id="tab-rocio" class="tab-content rocio-theme">
+
+            <nav class="nav">
+                <a href="#rocio-rutina">📅 Rutina Diaria</a>
+                <a href="#rocio-entrenamiento">🏋️ Entrenamientos</a>
+                <a href="#rocio-alimentacion">🍽️ Alimentación</a>
+                <a href="#rocio-sueño">😴 Sueño</a>
+                <a href="#rocio-checklist">✅ Checklist Hoy</a>
+            </nav>
+
+            <div class="motivational" style="background: linear-gradient(135deg, #ff6b9d, #c44569);">
+                💗 <strong>Rocío</strong> · 26 años · 43kg · 1.54m · Objetivo: TONIFICAR + GANAR FUERZA Y MASA. Comer más, mover más, dormir mejor.
+            </div>
+
+            <!-- INFO PERSONAL -->
+            <section>
+                <div class="card" style="background: linear-gradient(135deg, #2d1b3d 0%, #1a1a2e 100%); border: 2px solid #ff6b9d;">
+                    <h3 style="color: #ff6b9d;">📊 Datos Base</h3>
+                    <div class="grid-3" style="margin-top: 15px;">
+                        <div style="text-align: center; padding: 15px; background: rgba(255,107,157,0.1); border-radius: 10px;">
+                            <div style="font-size: 1.8em; font-weight: bold; color: #ff6b9d;">43 kg</div>
+                            <div style="color: #aaa; font-size: 0.9em;">Peso actual</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(255,107,157,0.1); border-radius: 10px;">
+                            <div style="font-size: 1.8em; font-weight: bold; color: #ff6b9d;">1.54 m</div>
+                            <div style="color: #aaa; font-size: 0.9em;">Altura</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(255,107,157,0.1); border-radius: 10px;">
+                            <div style="font-size: 1.8em; font-weight: bold; color: #ff6b9d;">18.1</div>
+                            <div style="color: #aaa; font-size: 0.9em;">IMC (bajo)</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(255,107,157,0.1); border-radius: 10px;">
+                            <div style="font-size: 1.8em; font-weight: bold; color: #ff6b9d;">2200</div>
+                            <div style="color: #aaa; font-size: 0.9em;">kcal/día (meta)</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(255,107,157,0.1); border-radius: 10px;">
+                            <div style="font-size: 1.8em; font-weight: bold; color: #ff6b9d;">75g</div>
+                            <div style="color: #aaa; font-size: 0.9em;">Proteína meta</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(255,107,157,0.1); border-radius: 10px;">
+                            <div style="font-size: 1.8em; font-weight: bold; color: #ff6b9d;">+0.3kg</div>
+                            <div style="color: #aaa; font-size: 0.9em;">Meta semanal</div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,170,0,0.1); border-left: 4px solid #ffaa00; padding: 15px; border-radius: 6px; margin-top: 20px; font-size: 0.95em;">
+                        ⚠️ <strong>Importante:</strong> Tu IMC es bajo (saludable empieza en 18.5). El objetivo NO es perder peso, sino GANAR masa muscular comiendo más y entrenando con resistencia. Vas a ver cambios visibles en 6-8 semanas.
+                    </div>
+                </div>
+            </section>
+
+            <!-- RUTINA DIARIA ROCIO -->
+            <section id="rocio-rutina">
+                <h2>📅 Tu Rutina Diaria - Lunes a Viernes</h2>
+
+                <div class="card">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-time">⏰ 7:30 AM - DESPERTAR</div>
+                            <div class="timeline-activity">Levantarse, baño, 2 vasos de agua</div>
+                            <div class="timeline-detail">Hidratación primero. Despertar lento sin celular.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">🌅 8:00 AM - DESAYUNO POTENTE</div>
+                            <div class="timeline-activity">Proteína + carbohidrato + grasa buena</div>
+                            <div class="timeline-detail">Tenés que comer MÁS de lo que comés hoy. Ver opciones abajo.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">🚆 8:30 AM - SALIR (1h de viaje)</div>
+                            <div class="timeline-activity">Llevar mochila con: botella agua + colación</div>
+                            <div class="timeline-detail">Snack para la mitad de mañana</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">💼 9:30 AM - 13:00 - TRABAJO</div>
+                            <div class="timeline-activity">Oficina + colación a las 11:00</div>
+                            <div class="timeline-detail">11:00 - colación: yogur + fruta o frutos secos</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">🍽️ 13:00 - 14:00 - ALMUERZO</div>
+                            <div class="timeline-activity">Comida fuerte (proteína + carbohidrato + verduras)</div>
+                            <div class="timeline-detail">Llevar tupper desde casa. NO chatarra de oficina.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">💼 14:00 - 17:00 - TRABAJO</div>
+                            <div class="timeline-activity">Tarde productiva</div>
+                            <div class="timeline-detail">Mate + agua constante</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">🚆 18:00 PM - SALIR DEL TRABAJO</div>
+                            <div class="timeline-activity">1h de viaje a casa</div>
+                            <div class="timeline-detail">Aprovechá: leer, podcast, descanso mental</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">🏠 19:00 PM - LLEGADA A CASA</div>
+                            <div class="timeline-activity">Cambiarse, agua, descanso 10 min</div>
+                            <div class="timeline-detail">LUNES: ya estás en bachata 19-20hs (saltea merienda hasta post-bachata)</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">🧉 19:15 PM - MERIENDA (en casa)</div>
+                            <div class="timeline-activity">Mate + tostadas o yogur con granola</div>
+                            <div class="timeline-detail">Mar/Mié/Jue/Vie: merienda antes de entrenar a las 19:30. LUNES: NO merendás (vas a bachata)</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">💪 19:30 PM - ENTRENAMIENTO (Mar/Mié/Jue/Vie)</div>
+                            <div class="timeline-activity">30-40 min con peso corporal + banda elástica</div>
+                            <div class="timeline-detail">Después de la merienda. LUNES: bachata cuenta como entreno (no extra)</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">💻 20:30 - 21:30 PM - PROGRAMACIÓN (parte 1)</div>
+                            <div class="timeline-activity">Freelance con Lautaro - 1h antes de cenar</div>
+                            <div class="timeline-detail">LUNES: ducha post-bachata 20-20:30, después programar</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">🌙 21:30 - 22:00 PM - CENA</div>
+                            <div class="timeline-activity">Comida balanceada + proteína</div>
+                            <div class="timeline-detail">Cenás más tarde porque meriendas tarde. Comida más liviana.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">💻 22:00 - 23:30 PM - PROGRAMACIÓN (parte 2)</div>
+                            <div class="timeline-activity">1.5 horas de programación final</div>
+                            <div class="timeline-detail">Cierre del día laboral - cerrá todo a las 23:30 sin excepción</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">🌙 23:30 PM - DESCONEXIÓN RÁPIDA (20 min)</div>
+                            <div class="timeline-activity">Té relajante + estiramiento + respiración</div>
+                            <div class="timeline-detail">CRÍTICO: te cuesta dormir. Sin celular, luz tenue, sin pantallas.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">😴 23:50 PM - DORMIR</div>
+                            <div class="timeline-activity">7.5 horas de sueño hasta 7:30 AM</div>
+                            <div class="timeline-detail">Habitación oscura, fresca, sin pantallas</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ENTRENAMIENTO ROCIO -->
+            <section id="rocio-entrenamiento">
+                <h2>🏋️ Plan Semanal de Entrenamiento</h2>
+
+                <div class="card">
+                    <p style="margin-bottom: 20px; color: #aaa;">
+                        💡 <strong>Objetivo:</strong> Hipertrofia (crecer músculo) con peso corporal + banda elástica. 30-40 min, 4-5 días por semana. Más calorías + entrenamiento de fuerza = ganar masa.
+                    </p>
+
+                    <div class="day-grid">
+
+                        <!-- LUNES -->
+                        <div class="day-card" style="border-color: #ff6b9d;">
+                            <div class="day-title" style="color: #ff6b9d;">📅 LUNES <span>💃</span></div>
+                            <div class="day-focus">BACHATA · 19:00 - 20:00 · 1 hora</div>
+
+                            <h4>💃 Tu Clase de Bachata</h4>
+                            <p style="color: #aaa; font-size: 0.95em;">
+                                Ya es ejercicio cardio + coordinación. NO necesitás entreno extra hoy.
+                                Hidratate bien antes y después.
+                            </p>
+
+                            <h4 style="margin-top: 15px;">🥤 Antes/Durante/Después</h4>
+                            <ul class="exercise-list">
+                                <li><span class="exercise-name">PRE: 1 banana + agua</span></li>
+                                <li><span class="exercise-name">DURANTE: hidratación</span></li>
+                                <li><span class="exercise-name">POST: yogur + fruta o batido</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- MARTES -->
+                        <div class="day-card" style="border-color: #ff6b9d;">
+                            <div class="day-title" style="color: #ff6b9d;">📅 MARTES <span>🦵</span></div>
+                            <div class="day-focus">PIERNAS + GLÚTEOS · 30-40 min · CASA</div>
+
+                            <h4>🔥 Calentamiento (5 min)</h4>
+                            <ul class="exercise-list">
+                                <li><span class="exercise-name">Marcha en el lugar</span><span class="exercise-sets">2 min</span></li>
+                                <li><span class="exercise-name">Sentadillas suaves</span><span class="exercise-sets">15 repeticiones</span></li>
+                            </ul>
+
+                            <h4>💪 Glúteos + Piernas</h4>
+                            <ul class="exercise-list">
+                                <li><span class="exercise-name">Sentadillas profundas</span><span class="exercise-sets">4x12-15</span></li>
+                                <li><span class="exercise-name">Puente de glúteos</span><span class="exercise-sets">4x15</span></li>
+                                <li><span class="exercise-name">Estocadas alternadas</span><span class="exercise-sets">3x10 c/pierna</span></li>
+                                <li><span class="exercise-name">Patada de glúteo (4 patas)</span><span class="exercise-sets">3x12 c/pierna</span></li>
+                                <li><span class="exercise-name">Abducción con banda elástica</span><span class="exercise-sets">3x15 c/lado</span></li>
+                                <li><span class="exercise-name">Sentadilla sumo (piernas abiertas)</span><span class="exercise-sets">3x12</span></li>
+                            </ul>
+
+                            <h4>🧘 Estiramiento (5 min)</h4>
+                            <p style="font-size: 0.9em; color: #aaa;">Cuádriceps, glúteos, isquiotibiales</p>
+                        </div>
+
+                        <!-- MIERCOLES -->
+                        <div class="day-card" style="border-color: #ff6b9d;">
+                            <div class="day-title" style="color: #ff6b9d;">📅 MIÉRCOLES <span>💪</span></div>
+                            <div class="day-focus">BRAZOS + ESPALDA · 30 min · CASA</div>
+
+                            <h4>🔥 Calentamiento (5 min)</h4>
+                            <ul class="exercise-list">
+                                <li><span class="exercise-name">Rotaciones de brazos</span><span class="exercise-sets">10 c/lado</span></li>
+                                <li><span class="exercise-name">Marcha con brazos</span><span class="exercise-sets">2 min</span></li>
+                            </ul>
+
+                            <h4>💪 Brazos + Espalda</h4>
+                            <ul class="exercise-list">
+                                <li><span class="exercise-name">Flexiones de rodillas (apoyando rodillas)</span><span class="exercise-sets">3x8-10</span></li>
+                                <li><span class="exercise-name">Flexiones inclinadas (manos en silla)</span><span class="exercise-sets">3x8-10</span></li>
+                                <li><span class="exercise-name">Remo con banda elástica</span><span class="exercise-sets">4x12-15</span></li>
+                                <li><span class="exercise-name">Curl bíceps con banda</span><span class="exercise-sets">3x12-15</span></li>
+                                <li><span class="exercise-name">Patada tríceps con banda</span><span class="exercise-sets">3x12-15</span></li>
+                                <li><span class="exercise-name">Apertura inversa con banda (espalda alta)</span><span class="exercise-sets">3x12</span></li>
+                            </ul>
+
+                            <h4>🧘 Estiramiento (5 min)</h4>
+                            <p style="font-size: 0.9em; color: #aaa;">Pecho, brazos, espalda</p>
+                        </div>
+
+                        <!-- JUEVES -->
+                        <div class="day-card" style="border-color: #ff6b9d;">
+                            <div class="day-title" style="color: #ff6b9d;">📅 JUEVES <span>🍑</span></div>
+                            <div class="day-focus">GLÚTEOS + PIERNAS (énfasis cola) · 30 min</div>
+
+                            <h4>🔥 Calentamiento (5 min)</h4>
+                            <p style="font-size: 0.9em; color: #aaa;">Marcha + activación glúteos</p>
+
+                            <h4>💪 Glúteos al máximo</h4>
+                            <ul class="exercise-list">
+                                <li><span class="exercise-name">Hip thrust en suelo</span><span class="exercise-sets">4x15</span></li>
+                                <li><span class="exercise-name">Hip thrust con 1 pierna</span><span class="exercise-sets">3x10 c/pierna</span></li>
+                                <li><span class="exercise-name">Sentadilla búlgara (pie en silla)</span><span class="exercise-sets">3x10 c/pierna</span></li>
+                                <li><span class="exercise-name">Patada de burro (4 patas)</span><span class="exercise-sets">3x15 c/pierna</span></li>
+                                <li><span class="exercise-name">Caminata lateral con banda</span><span class="exercise-sets">3x10 pasos c/lado</span></li>
+                                <li><span class="exercise-name">Puente con banda en rodillas</span><span class="exercise-sets">3x15</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- VIERNES -->
+                        <div class="day-card" style="border-color: #ff6b9d;">
+                            <div class="day-title" style="color: #ff6b9d;">📅 VIERNES <span>🧘</span></div>
+                            <div class="day-focus">CUERPO COMPLETO + CORE · 30 min</div>
+
+                            <h4>💪 Cuerpo Completo</h4>
+                            <ul class="exercise-list">
+                                <li><span class="exercise-name">Sentadillas</span><span class="exercise-sets">3x12</span></li>
+                                <li><span class="exercise-name">Flexiones de rodillas</span><span class="exercise-sets">3x8</span></li>
+                                <li><span class="exercise-name">Remo con banda</span><span class="exercise-sets">3x12</span></li>
+                                <li><span class="exercise-name">Estocadas</span><span class="exercise-sets">3x10 c/pierna</span></li>
+                            </ul>
+
+                            <h4>🎯 Core (abdominales)</h4>
+                            <ul class="exercise-list">
+                                <li><span class="exercise-name">Plancha</span><span class="exercise-sets">3x20-30 seg</span></li>
+                                <li><span class="exercise-name">Plancha lateral</span><span class="exercise-sets">3x15 seg c/lado</span></li>
+                                <li><span class="exercise-name">Bicicleta abdominal</span><span class="exercise-sets">3x20</span></li>
+                                <li><span class="exercise-name">Elevación de piernas</span><span class="exercise-sets">3x12</span></li>
+                                <li><span class="exercise-name">Súperman</span><span class="exercise-sets">3x12</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- SABADO/DOMINGO -->
+                        <div class="day-card rest" style="border-color: #ff6b9d;">
+                            <div class="day-title" style="color: #ff6b9d;">📅 SÁBADO + DOMINGO <span>🛋️</span></div>
+                            <div class="day-focus">DESCANSO ACTIVO</div>
+
+                            <p style="margin-top: 15px; color: #aaa;">
+                                Caminata con Lautaro, paseo, o solo descansar.
+                                Días para que tu cuerpo CREZCA (los músculos se construyen en el descanso).
+                            </p>
+
+                            <h4 style="margin-top: 15px;">📌 Recomendación</h4>
+                            <ul style="color: #ddd; padding-left: 20px; line-height: 1.8;">
+                                <li>Caminata 30-60 min al aire libre</li>
+                                <li>Estiramiento suave</li>
+                                <li>Yoga o pilates suave (opcional)</li>
+                                <li>NO sedentaria todo el día</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ALIMENTACION ROCIO -->
+            <section id="rocio-alimentacion">
+                <h2>🍽️ Plan de Alimentación - Para GANAR MASA</h2>
+
+                <div class="card">
+                    <div style="background: rgba(255,107,157,0.1); border-left: 4px solid #ff6b9d; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                        💗 <strong>Tu objetivo:</strong> Comer 2200 kcal/día (más de lo que comés ahora). 5 comidas. 75g de proteína. Ganar 0.3kg/semana de músculo.
+                    </div>
+
+                    <h3 style="color: #ff6b9d;">🌅 DESAYUNO (8:00 AM) - ¡FUNDAMENTAL!</h3>
+                    <p style="color: #aaa; margin-bottom: 15px;">No salgas de casa sin desayunar bien. Esto te da energía para todo el día.</p>
+
+                    <div class="grid-3">
+                        <div class="food-card">
+                            <span class="food-emoji">🍳</span>
+                            <div class="food-name">Clásico Power</div>
+                            <div class="food-desc">2 huevos revueltos + 2 tostadas + queso untable + 1 banana + café con leche</div>
+                            <div class="food-stats">
+                                <span>🔥 520 kcal</span>
+                                <span>🥩 25g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🥣</span>
+                            <div class="food-name">Avena Crece-Músculo</div>
+                            <div class="food-desc">Avena (4 cdas) con leche entera + 1 cda miel + 1 banana + nueces + mate</div>
+                            <div class="food-stats">
+                                <span>🔥 550 kcal</span>
+                                <span>🥩 18g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🍓</span>
+                            <div class="food-name">Yogur Cargado</div>
+                            <div class="food-desc">Yogur con sabor (2 potes) + granola + frutillas + 1 cda miel + almendras</div>
+                            <div class="food-stats">
+                                <span>🔥 480 kcal</span>
+                                <span>🥩 18g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🥤</span>
+                            <div class="food-name">Licuado Express</div>
+                            <div class="food-desc">Banana + 1 medida proteína + leche entera + avena + 1 cda manteca de maní</div>
+                            <div class="food-stats">
+                                <span>🔥 580 kcal</span>
+                                <span>🥩 35g proteína</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #ff6b9d; margin-top: 30px;">☕ COLACIÓN MAÑANA (11:00) - En oficina</h3>
+                    <div class="grid-3">
+                        <div class="food-card">
+                            <span class="food-emoji">🍌</span>
+                            <div class="food-name">Banana + Almendras</div>
+                            <div class="food-desc">1 banana grande + puñado de almendras (15-20)</div>
+                            <div class="food-stats">
+                                <span>🔥 280 kcal</span>
+                                <span>🥩 8g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🍓</span>
+                            <div class="food-name">Yogur con Sabor</div>
+                            <div class="food-desc">1 yogur + 1 fruta (manzana o naranja)</div>
+                            <div class="food-stats">
+                                <span>🔥 220 kcal</span>
+                                <span>🥩 6g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🥪</span>
+                            <div class="food-name">Mini Sándwich</div>
+                            <div class="food-desc">1 tostada integral + jamón + queso dambo + tomate</div>
+                            <div class="food-stats">
+                                <span>🔥 250 kcal</span>
+                                <span>🥩 14g proteína</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #ff6b9d; margin-top: 30px;">🍽️ ALMUERZO (13:00) - Llevar tupper</h3>
+                    <p style="color: #aaa; margin-bottom: 15px;">PROTEÍNA (150g) + CARBOHIDRATO + VERDURAS. Llevá desde casa.</p>
+
+                    <div class="grid-3">
+                        <div class="food-card">
+                            <span class="food-emoji">🍗</span>
+                            <div class="food-name">Pollo + Arroz</div>
+                            <div class="food-desc">Pechuga (150g) a la plancha + arroz integral (1 taza) + ensalada (lechuga, tomate, zanahoria)</div>
+                            <div class="food-stats">
+                                <span>🔥 550 kcal</span>
+                                <span>🥩 38g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🥩</span>
+                            <div class="food-name">Carne con Puré</div>
+                            <div class="food-desc">Bife (150g) o carne molida + puré de papa o calabaza + ensalada</div>
+                            <div class="food-stats">
+                                <span>🔥 600 kcal</span>
+                                <span>🥩 40g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🐟</span>
+                            <div class="food-name">Atún + Pasta</div>
+                            <div class="food-desc">Pasta integral (80g cruda) + 1 lata atún + tomate + queso rallado</div>
+                            <div class="food-stats">
+                                <span>🔥 550 kcal</span>
+                                <span>🥩 32g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🍲</span>
+                            <div class="food-name">Guiso de Lentejas</div>
+                            <div class="food-desc">Lentejas + carne + zanahoria + cebolla + papa + arroz</div>
+                            <div class="food-stats">
+                                <span>🔥 580 kcal</span>
+                                <span>🥩 30g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🍝</span>
+                            <div class="food-name">Tallarines Bolognesa</div>
+                            <div class="food-desc">Tallarines (80g) + salsa con carne molida (100g) + queso rallado + ensalada</div>
+                            <div class="food-stats">
+                                <span>🔥 620 kcal</span>
+                                <span>🥩 32g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🥗</span>
+                            <div class="food-name">Bowl Pollo</div>
+                            <div class="food-desc">Pollo desmenuzado (150g) + arroz + huevo duro + tomate + zanahoria + queso dambo</div>
+                            <div class="food-stats">
+                                <span>🔥 590 kcal</span>
+                                <span>🥩 42g proteína</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #ff6b9d; margin-top: 30px;">🧉 MERIENDA (19:15 - al llegar a casa) - Mate + sólido</h3>
+                    <p style="color: #aaa; margin-bottom: 15px;">Mar/Mié/Jue/Vie: merendás al llegar, antes de entrenar. <strong>LUNES: NO merendás</strong> (tenés bachata) - directo cena 20:30 post-clase.</p>
+                    <div class="grid-3">
+                        <div class="food-card">
+                            <span class="food-emoji">🧉</span>
+                            <div class="food-name">Mate Tradicional</div>
+                            <div class="food-desc">Mate + 2 tostadas con queso dambo + 1 fruta</div>
+                            <div class="food-stats">
+                                <span>🔥 320 kcal</span>
+                                <span>🥩 12g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🍓</span>
+                            <div class="food-name">Yogur + Granola</div>
+                            <div class="food-desc">Yogur con sabor + granola + 1 banana</div>
+                            <div class="food-stats">
+                                <span>🔥 340 kcal</span>
+                                <span>🥩 10g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🥪</span>
+                            <div class="food-name">Sándwich + Té</div>
+                            <div class="food-desc">Pan integral + jamón + queso cheddar + lechuga + té</div>
+                            <div class="food-stats">
+                                <span>🔥 380 kcal</span>
+                                <span>🥩 22g proteína</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #ff6b9d; margin-top: 30px;">🌙 CENA (21:30 - 22:00)</h3>
+                    <p style="color: #aaa; margin-bottom: 15px;">Cena más tarde porque meriendas a las 19:15. Proteína + verduras + carbohidrato moderado. Como vas a dormir en 1.5h, comida MÁS LIVIANA (menos pesada).</p>
+
+                    <div class="grid-3">
+                        <div class="food-card">
+                            <span class="food-emoji">🍗</span>
+                            <div class="food-name">Pollo + Verduras</div>
+                            <div class="food-desc">Pechuga (130g) + zapallo + zanahoria + papa al horno</div>
+                            <div class="food-stats">
+                                <span>🔥 480 kcal</span>
+                                <span>🥩 35g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🍳</span>
+                            <div class="food-name">Tortilla + Ensalada</div>
+                            <div class="food-desc">Tortilla 3 huevos + papa + cebolla + ensalada (lechuga, tomate)</div>
+                            <div class="food-stats">
+                                <span>🔥 460 kcal</span>
+                                <span>🥩 22g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🥩</span>
+                            <div class="food-name">Bife Liviano</div>
+                            <div class="food-desc">Bife (130g) + ensalada de espinaca, tomate, zanahoria + 1 papa hervida</div>
+                            <div class="food-stats">
+                                <span>🔥 470 kcal</span>
+                                <span>🥩 36g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🌯</span>
+                            <div class="food-name">Rollito Integral</div>
+                            <div class="food-desc">Rollito + pollo + queso cheddar + lechuga + tomate</div>
+                            <div class="food-stats">
+                                <span>🔥 490 kcal</span>
+                                <span>🥩 30g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🍕</span>
+                            <div class="food-name">Pizza Casera Light</div>
+                            <div class="food-desc">Base integral + tomate + mozzarella + jamón + tomate fresco + orégano</div>
+                            <div class="food-stats">
+                                <span>🔥 500 kcal</span>
+                                <span>🥩 28g proteína</span>
+                            </div>
+                        </div>
+
+                        <div class="food-card">
+                            <span class="food-emoji">🥚</span>
+                            <div class="food-name">Revuelto Cargado</div>
+                            <div class="food-desc">3 huevos revueltos + espinaca + queso dambo + 1 tostada</div>
+                            <div class="food-stats">
+                                <span>🔥 470 kcal</span>
+                                <span>🥩 28g proteína</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #ff6b9d; margin-top: 30px;">🌃 SNACK PRE-DORMIR (Solo si hace falta)</h3>
+                    <p style="color: #aaa; margin-bottom: 15px;">Como cenás a las 21:30-22, probablemente NO necesités este snack. Solo si tenés mucha hambre o querés sumar calorías para crecer:</p>
+                    <div class="grid-3">
+                        <div class="food-card">
+                            <span class="food-emoji">🥛</span>
+                            <div class="food-name">Vaso de Leche + Avena</div>
+                            <div class="food-desc">250ml leche entera + 2 cdas avena + 1 cda miel</div>
+                            <div class="food-stats">
+                                <span>🔥 280 kcal</span>
+                            </div>
+                        </div>
+                        <div class="food-card">
+                            <span class="food-emoji">🍓</span>
+                            <div class="food-name">Yogur con Granola</div>
+                            <div class="food-desc">1 yogur + granola + frutas</div>
+                            <div class="food-stats">
+                                <span>🔥 250 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUEÑO ROCIO -->
+            <section id="rocio-sueño">
+                <h2>😴 Rutina de Sueño - Para Dormir Mejor</h2>
+
+                <div class="card">
+                    <div style="background: rgba(255,107,157,0.1); border-left: 4px solid #ff6b9d; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                        💗 <strong>Tu problema:</strong> Te cuesta dormir. Esta rutina de 30 min antes de dormir te ayuda a "bajar" el sistema nervioso.
+                    </div>
+
+                    <h3 style="color: #ff6b9d;">🌙 23:30 PM - Desconexión Rápida (20 min)</h3>
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-time">23:30 - 23:35</div>
+                            <div class="timeline-activity">Cerrar laptop + celular en silencio</div>
+                            <div class="timeline-detail">Punto de no retorno. Sin pantalla.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">23:35 - 23:42</div>
+                            <div class="timeline-activity">Té relajante (manzanilla, tilo, valeriana)</div>
+                            <div class="timeline-detail">Sin azúcar. Calienta el cuerpo y relaja.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">23:42 - 23:47</div>
+                            <div class="timeline-activity">Estiramiento suave en la cama</div>
+                            <div class="timeline-detail">5 min de yoga suave o estiramiento</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">23:47 - 23:50</div>
+                            <div class="timeline-activity">Respiración 4-7-8</div>
+                            <div class="timeline-detail">Inhalar 4s, retener 7s, exhalar 8s. 5 ciclos.</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-time">23:50</div>
+                            <div class="timeline-activity">DORMIR 😴</div>
+                            <div class="timeline-detail">Habitación oscura, fresca (18-20°C), silencio. 7.5h hasta 7:30 AM</div>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #ff6b9d; margin-top: 30px;">🚫 Reglas para Dormir Mejor</h3>
+                    <ul style="color: #ddd; padding-left: 20px; line-height: 2;">
+                        <li>❌ NO café después de las 16:00</li>
+                        <li>❌ NO mate después de las 19:00</li>
+                        <li>❌ NO pantallas 30 min antes</li>
+                        <li>❌ NO comidas pesadas después de 21:30</li>
+                        <li>✅ Habitación oscura (cortinas o antifaz)</li>
+                        <li>✅ Habitación fresca (18-20°C)</li>
+                        <li>✅ Silencio (tapones si es necesario)</li>
+                        <li>✅ Misma hora de dormir TODOS los días (incluso fin de semana)</li>
+                    </ul>
+
+                    <h3 style="color: #ff6b9d; margin-top: 30px;">💊 Si NO te dormís en 20 min</h3>
+                    <ul style="color: #ddd; padding-left: 20px; line-height: 1.8;">
+                        <li>NO mires el celular</li>
+                        <li>Levantate, hacé algo aburrido (estirar, leer un libro físico con luz tenue)</li>
+                        <li>Volvé a la cama cuando tengas sueño</li>
+                        <li>NO pelees con el insomnio - eso lo empeora</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- CHECKLIST ROCIO -->
+            <section id="rocio-checklist">
+                <h2>✅ Checklist Diario - Marcá lo que hacés</h2>
+
+                <div class="card">
+                    <h3 style="color: #ff6b9d;">🌅 MAÑANA</h3>
+                    <ul class="checklist">
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Desperté 7:30 AM</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>2 vasos de agua al despertar</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Desayuno completo (8 AM)</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Tupper preparado para el almuerzo</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Botella de agua + colación en la mochila</span></li>
+                    </ul>
+
+                    <h3 style="color: #ff6b9d; margin-top: 25px;">💼 TRABAJO</h3>
+                    <ul class="checklist">
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Colación 11:00 (yogur o fruta)</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Almuerzo limpio 13:00</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Mate + agua durante la tarde</span></li>
+                    </ul>
+
+                    <h3 style="color: #ff6b9d; margin-top: 25px;">🚆 POST-TRABAJO</h3>
+                    <ul class="checklist">
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Llegada 19:00 - cambiarse + agua</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Merienda 19:15 (Mar-Vie) / Bachata 19-20 (Lun)</span></li>
+                    </ul>
+
+                    <h3 style="color: #ff6b9d; margin-top: 25px;">💪 ENTRENAMIENTO</h3>
+                    <ul class="checklist">
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Hoy entreno: ____ (lunes bachata)</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Hidratación pre/durante/post</span></li>
+                    </ul>
+
+                    <h3 style="color: #ff6b9d; margin-top: 25px;">🌙 NOCHE</h3>
+                    <ul class="checklist">
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Programación parte 1 (20:30 - 21:30)</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Cena liviana (21:30 - 22:00)</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Programación parte 2 (22:00 - 23:30)</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Desconexión rápida 23:30 (sin pantalla)</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Té relajante</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Dormir 23:50</span></li>
+                    </ul>
+
+                    <h3 style="color: #ff6b9d; margin-top: 25px;">📊 OBJETIVOS DEL DÍA</h3>
+                    <ul class="checklist">
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Comí ~2200 kcal (sin contar obsesivo)</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>Proteína en 4-5 comidas</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>2L+ de agua</span></li>
+                        <li><div class="checkbox" onclick="toggleCheck(this)"></div><span>8h de sueño anoche</span></li>
+                    </ul>
+
+                    <button class="reset-btn" onclick="resetChecklist()" style="background: #2d1b3d; color: #ff6b9d; border: 1px solid #ff6b9d; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85em; margin-top: 15px;">↻ Resetear (nuevo día)</button>
+                </div>
+            </section>
+
+        </div>
+        <!-- ============== FIN TAB ROCIO ============== -->
+
+        <footer>
+            💪 Mi Sistema de Vida · En operación continua · Actualizado: <span id="updated"></span>
+        </footer>
+    </div>
+
+    <script>
+        // Switcher de persona (Lautaro / Rocío)
+        function switchPerson(person) {
+            // Ocultar todos los tabs
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.person-tab').forEach(t => t.classList.remove('active'));
+
+            // Mostrar el seleccionado
+            document.getElementById('tab-' + person).classList.add('active');
+            document.querySelector('.person-tab.' + person).classList.add('active');
+
+            // Guardar preferencia
+            localStorage.setItem('selectedPerson', person);
+
+            // Scroll arriba
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Cargar persona guardada
+        function loadPerson() {
+            const saved = localStorage.getItem('selectedPerson') || 'lautaro';
+            switchPerson(saved);
+        }
+
+        // Fecha de hoy
+        function updateDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date().toLocaleDateString('es-AR', options);
+            document.getElementById('today-date').textContent = today.charAt(0).toUpperCase() + today.slice(1);
+            document.getElementById('updated').textContent = new Date().toLocaleDateString('es-AR');
+        }
+
+        // Toggle checkbox
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+            element.textContent = element.classList.contains('checked') ? '✓' : '';
+            saveChecklist();
+        }
+
+        function toggleWater(element) {
+            element.classList.toggle('filled');
+            saveWater();
+        }
+
+        function saveChecklist() {
+            const checks = [];
+            document.querySelectorAll('.checkbox').forEach((c, i) => {
+                checks.push(c.classList.contains('checked'));
+            });
+            const today = new Date().toDateString();
+            localStorage.setItem('checklist_' + today, JSON.stringify(checks));
+        }
+
+        function saveWater() {
+            const waters = [];
+            document.querySelectorAll('.water-glass').forEach((c, i) => {
+                waters.push(c.classList.contains('filled'));
+            });
+            const today = new Date().toDateString();
+            localStorage.setItem('water_' + today, JSON.stringify(waters));
+        }
+
+        function loadState() {
+            const today = new Date().toDateString();
+
+            const savedChecks = localStorage.getItem('checklist_' + today);
+            if (savedChecks) {
+                const checks = JSON.parse(savedChecks);
+                document.querySelectorAll('.checkbox').forEach((c, i) => {
+                    if (checks[i]) {
+                        c.classList.add('checked');
+                        c.textContent = '✓';
+                    }
+                });
+            }
+
+            const savedWater = localStorage.getItem('water_' + today);
+            if (savedWater) {
+                const waters = JSON.parse(savedWater);
+                document.querySelectorAll('.water-glass').forEach((c, i) => {
+                    if (waters[i]) c.classList.add('filled');
+                });
+            }
+        }
+
+        function resetChecklist() {
+            if (confirm('¿Resetear todo? (Para empezar nuevo día)')) {
+                document.querySelectorAll('.checkbox').forEach(c => {
+                    c.classList.remove('checked');
+                    c.textContent = '';
+                });
+                document.querySelectorAll('.water-glass').forEach(c => {
+                    c.classList.remove('filled');
+                });
+                const today = new Date().toDateString();
+                localStorage.removeItem('checklist_' + today);
+                localStorage.removeItem('water_' + today);
+            }
+        }
+
+        updateDate();
+        loadState();
+        loadPerson();
+    </script>
+</body>
+</html>

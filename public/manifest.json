@@ -1,0 +1,50 @@
+{
+  "name": "Life OS - Sistema de Vida",
+  "short_name": "Life OS",
+  "description": "Tu sistema personal de hábitos saludables, entrenamiento y nutrición",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "lang": "es-AR",
+  "dir": "ltr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Lautaro",
+      "short_name": "Lautaro",
+      "description": "Abrir rutina de Lautaro",
+      "url": "/lautaro",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Rocío",
+      "short_name": "Rocío",
+      "description": "Abrir rutina de Rocío",
+      "url": "/rocio",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "categories": ["health", "lifestyle", "fitness"]
+}

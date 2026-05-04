@@ -1,0 +1,118 @@
+// Schema de la base de datos - Life OS
+// Mantiene un registro diario de actividades de Lautaro y Rocío
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// USUARIOS
+model User {
+  id          String   @id @default(cuid())
+  slug        String   @unique // "lautaro" | "rocio"
+  name        String
+  age         Int
+  weight      Float?
+  height      Float?
+  goal        String   // "masa_muscular", "tonificar", etc
+  theme       String   // "lautaro" | "rocio" para colores
+  createdAt   DateTime @default(now())
+
+  // Relaciones
+  dailyEntries DailyEntry[]
+  checkItems   CheckItemLog[]
+  workouts     WorkoutLog[]
+  meals        MealLog[]
+
+  @@map("users")
+}
+
+// REGISTRO DIARIO (1 por usuario por día)
+model DailyEntry {
+  id           String   @id @default(cuid())
+  userId       String
+  date         DateTime // Solo fecha (YYYY-MM-DD)
+
+  // Métricas del día (Puntaje de Vida)
+  sleepHours   Float?
+  sleepQuality Int?     // 1-10
+  energy       Int?     // 1-10
+  mood         Int?     // 1-10
+
+  // Puntajes (0-25 cada uno = 100 total)
+  scoreSleep      Int?
+  scoreTraining   Int?
+  scoreNutrition  Int?
+  scoreMood       Int?
+  scoreTotal      Int?
+
+  // Notas
+  notes        String?
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@map("daily_entries")
+}
+
+// ITEMS DE CHECKLIST DIARIO
+// Cada acción que el usuario hace o no hace en su día
+model CheckItemLog {
+  id          String   @id @default(cuid())
+  userId      String
+  date        DateTime // Fecha del check
+  itemKey     String   // ej: "desayuno_proteina", "entrenamiento", "agua_2_5L"
+  itemLabel   String   // Texto visible
+  category    String   // "morning" | "training" | "nutrition" | "night" | "post_work"
+  completed   Boolean  @default(false)
+  completedAt DateTime?
+
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date, itemKey])
+  @@map("check_item_logs")
+}
+
+// REGISTRO DE ENTRENAMIENTO
+model WorkoutLog {
+  id          String   @id @default(cuid())
+  userId      String
+  date        DateTime
+  type        String   // "Pecho+Bíceps", "Piernas", "Bachata", etc
+  duration    Int?     // minutos
+  intensity   Int?     // 1-10 RPE
+  exercises   String?  // JSON con detalles
+  notes       String?
+
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("workout_logs")
+}
+
+// REGISTRO DE COMIDAS
+model MealLog {
+  id          String   @id @default(cuid())
+  userId      String
+  date        DateTime
+  mealType    String   // "desayuno", "almuerzo", "merienda", "cena"
+  description String?
+  cleanPercent Int?    // 0-100 % limpio
+  notes       String?
+
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("meal_logs")
+}
