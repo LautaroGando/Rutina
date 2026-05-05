@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { lautaroChecklist } from "@/lib/data/lautaro";
 import { rocioChecklist } from "@/lib/data/rocio";
+import { dateToArgString } from "@/lib/utils";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -55,7 +56,8 @@ export async function GET(req: NextRequest) {
     const grouped: Record<string, HistoryDay> = {};
 
     for (const log of logs) {
-      const dateKey = log.date.toISOString().split("T")[0];
+      // Agrupar por fecha argentina (no UTC)
+      const dateKey = dateToArgString(log.date);
       if (!grouped[dateKey]) {
         grouped[dateKey] = {
           date: dateKey,

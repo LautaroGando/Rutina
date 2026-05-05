@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Calendar, Dumbbell, UtensilsCrossed, ChartBar, CheckSquare, History } from "lucide-react";
+import { Calendar, Dumbbell, UtensilsCrossed, CheckSquare, ShoppingCart, History } from "lucide-react";
 
 interface NavigationProps {
   user: "lautaro" | "rocio";
@@ -13,15 +13,15 @@ interface NavigationProps {
 export function Navigation({ user }: NavigationProps) {
   const pathname = usePathname();
 
-  // Mobile bottom nav: 5 items prioritarios. Histórico va al final del 5to (Stats)
-  // Actualización: hacemos lugar reduciendo padding para que entren 6
+  // Bottom nav: 6 items principales
+  // Stats accesible desde Histórico/Hábitos como link
   const links = [
     { href: `/${user}`, label: "Hoy", icon: Calendar },
     { href: `/${user}/entrenamiento`, label: "Entreno", icon: Dumbbell },
     { href: `/${user}/alimentacion`, label: "Comidas", icon: UtensilsCrossed },
     { href: `/${user}/checklist`, label: "Hábitos", icon: CheckSquare },
+    { href: `/${user}/compras`, label: "Compras", icon: ShoppingCart },
     { href: `/${user}/historial`, label: "Días", icon: History },
-    { href: `/${user}/seguimiento`, label: "Stats", icon: ChartBar },
   ];
 
   const isLautaro = user === "lautaro";

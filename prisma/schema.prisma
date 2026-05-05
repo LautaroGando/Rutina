@@ -28,8 +28,31 @@ model User {
   checkItems   CheckItemLog[]
   workouts     WorkoutLog[]
   meals        MealLog[]
+  shoppingItems ShoppingCheckLog[]
 
   @@map("users")
+}
+
+// LISTA DE COMPRAS SEMANAL
+// Cada item se guarda con weekStart (el lunes de esa semana)
+// Al cambiar de semana, los items aparecen "vacíos" pero los anteriores quedan en BD
+model ShoppingCheckLog {
+  id          String   @id @default(cuid())
+  userId      String
+  weekStart   DateTime // Lunes de la semana (YYYY-MM-DD T00:00:00 UTC)
+  itemKey     String   // ej: "pollo_pechuga", "huevos"
+  itemLabel   String
+  category    String   // proteinas, carbohidratos, etc
+  completed   Boolean  @default(false)
+  completedAt DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, weekStart, itemKey])
+  @@map("shopping_check_logs")
 }
 
 // REGISTRO DIARIO (1 por usuario por día)

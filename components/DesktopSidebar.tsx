@@ -1,11 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Calendar, Dumbbell, UtensilsCrossed, ChartBar, CheckSquare, History } from "lucide-react";
+import { Calendar, Dumbbell, UtensilsCrossed, ChartBar, CheckSquare, History, ShoppingCart } from "lucide-react";
 import { PersonSwitcher } from "./PersonSwitcher";
+import { formatDateShortAR } from "@/lib/utils";
 
 interface DesktopSidebarProps {
   user: "lautaro" | "rocio";
@@ -13,21 +15,21 @@ interface DesktopSidebarProps {
 
 export function DesktopSidebar({ user }: DesktopSidebarProps) {
   const pathname = usePathname();
+  const [today, setToday] = useState<string>("");
+
+  useEffect(() => {
+    setToday(formatDateShortAR(new Date()));
+  }, []);
 
   const links = [
     { href: `/${user}`, label: "Hoy", icon: Calendar },
     { href: `/${user}/entrenamiento`, label: "Entrenamiento", icon: Dumbbell },
     { href: `/${user}/alimentacion`, label: "Alimentación", icon: UtensilsCrossed },
     { href: `/${user}/checklist`, label: "Hábitos", icon: CheckSquare },
+    { href: `/${user}/compras`, label: "Lista de Compras", icon: ShoppingCart },
     { href: `/${user}/historial`, label: "Histórico", icon: History },
     { href: `/${user}/seguimiento`, label: "Seguimiento", icon: ChartBar },
   ];
-
-  const today = new Date().toLocaleDateString("es-AR", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  });
 
   const isLautaro = user === "lautaro";
   const accentText = isLautaro ? "text-cyan-400" : "text-pink-400";
@@ -35,7 +37,6 @@ export function DesktopSidebar({ user }: DesktopSidebarProps) {
 
   return (
     <aside className="hidden md:flex flex-col w-72 lg:w-80 fixed top-0 left-0 bottom-0 bg-[#0a0e27]/95 backdrop-blur-xl border-r border-white/5 p-6 overflow-y-auto">
-      {/* Logo */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -49,12 +50,10 @@ export function DesktopSidebar({ user }: DesktopSidebarProps) {
         <p className="text-xs text-gray-400 capitalize">{today}</p>
       </motion.div>
 
-      {/* Person switcher */}
       <div className="mb-8">
         <PersonSwitcher current={user} />
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 space-y-2">
         {links.map((link) => {
           const isActive = pathname === link.href;
@@ -89,7 +88,6 @@ export function DesktopSidebar({ user }: DesktopSidebarProps) {
         })}
       </nav>
 
-      {/* Footer info */}
       <div className="mt-6 pt-6 border-t border-white/5">
         <p className="text-xs text-gray-500 text-center">
           💪 Life OS · {user === "lautaro" ? "Tataro" : "Ozio"}

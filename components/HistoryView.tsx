@@ -56,8 +56,10 @@ export function HistoryView({ user }: HistoryViewProps) {
   const accentBg = user === "lautaro" ? "gradient-lautaro" : "gradient-rocio";
 
   const formatDate = (dateStr: string) => {
-    const d = new Date(dateStr);
+    // dateStr es YYYY-MM-DD - parseamos como UTC para evitar conversiones
+    const d = new Date(dateStr + "T12:00:00Z");
     return d.toLocaleDateString("es-AR", {
+      timeZone: "UTC",
       weekday: "long",
       day: "numeric",
       month: "long",
@@ -65,7 +67,10 @@ export function HistoryView({ user }: HistoryViewProps) {
   };
 
   const isToday = (dateStr: string) => {
-    const today = new Date().toISOString().split("T")[0];
+    // Comparar con la fecha argentina actual
+    const today = new Date().toLocaleDateString("en-CA", {
+      timeZone: "America/Argentina/Buenos_Aires",
+    });
     return dateStr === today;
   };
 

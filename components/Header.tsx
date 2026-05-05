@@ -1,20 +1,21 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { PersonSwitcher } from "./PersonSwitcher";
+import { formatDateShortAR } from "@/lib/utils";
 
 interface HeaderProps {
   user: "lautaro" | "rocio";
 }
 
 export function Header({ user }: HeaderProps) {
-  const today = new Date().toLocaleDateString("es-AR", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  });
+  const [today, setToday] = useState<string>("");
 
-  // Solo se muestra en mobile (md:hidden)
+  useEffect(() => {
+    setToday(formatDateShortAR(new Date()));
+  }, []);
+
   return (
     <header className="md:hidden sticky top-0 z-40 bg-[#1a1a2e]/90 backdrop-blur-xl border-b border-white/5">
       <div className="px-4 py-4 max-w-md mx-auto">
