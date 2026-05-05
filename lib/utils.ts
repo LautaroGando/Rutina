@@ -30,10 +30,12 @@ export function getTodayString(): string {
 }
 
 /**
- * Devuelve YYYY-MM-DD de un Date interpretado en zona horaria argentina
+ * Devuelve YYYY-MM-DD de un Date que fue guardado como UTC midnight de la fecha argentina.
+ * Como guardamos las fechas con `getTodayDate()` (UTC midnight de la fecha argentina),
+ * extraemos directamente la parte de fecha UTC para mantener consistencia.
  */
 export function dateToArgString(date: Date): string {
-  return date.toLocaleDateString("en-CA", { timeZone: TZ });
+  return date.toISOString().split("T")[0];
 }
 
 /**
